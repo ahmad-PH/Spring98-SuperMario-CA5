@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/src.dir/main.cpp.o CMakeFiles/src.dir/AssetsAddressLookup.cpp.o CMakeFiles/src.dir/Game.cpp.o CMakeFiles/src.dir/Mario.cpp.o  -o src 
