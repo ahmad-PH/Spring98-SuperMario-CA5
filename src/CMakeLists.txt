@@ -3,4 +3,4 @@ project(src)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(src main.cpp AssetsAddressLookup.cpp AssetsAddressLookup.h Game.cpp Game.h Mario.cpp Mario.h)
+add_executable(src main.cpp AssetsAddresses.h Game.cpp Game.h Mario.cpp Mario.h Block.cpp Block.h rsdl.cpp rsdl.hpp Physics.cpp Physics.h)

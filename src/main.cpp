@@ -10,7 +10,6 @@ struct Map {
 
 
 int main() {
-    Game g("../assets");
-    g.draw();
-    SDL_Delay(7000);
+    Game g;
+    g.run_level("../assets/maps/1.txt");
 }
