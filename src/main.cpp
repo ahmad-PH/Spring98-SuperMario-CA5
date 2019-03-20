@@ -4,10 +4,7 @@
 
 using namespace std;
 
-struct Map {
-
-};
-
+#include "Object.h"
 
 int main() {
     Game g;

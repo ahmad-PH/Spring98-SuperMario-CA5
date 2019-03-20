@@ -17,7 +17,7 @@ Mario::Mario(Rectangle _position) : position(_position) {
     ay = GRAVITATIONAL_ACCELERATION;
 }
 
-void Mario::draw(Window& win) {
+void Mario::draw(rsdl::Window& win) {
     string address = MARIO_ADDR;
 
     if (strength == NORMAL)
@@ -89,3 +89,15 @@ void Mario::update() {
 
 double Mario::max_vx = 4;
 double Mario::max_vy = 8;
+
+Rectangle Mario::get_position() {
+    return position;
+}
+
+double Mario::get_vx() {
+    return vx;
+}
+
+double Mario::get_vy() {
+    return vy;
+}

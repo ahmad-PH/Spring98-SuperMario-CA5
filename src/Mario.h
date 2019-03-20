@@ -2,16 +2,24 @@
 #define SRC_MARIO_H
 
 #include "rsdl.hpp"
+#include "Object.h"
+#include "Geometry.h"
 #include <string>
 
-class Mario {
+class Mario : public MovingObject {
 
 public:
     Mario(Rectangle position);
-    void draw(Window& win);
+    void draw(rsdl::Window& win);
     void handle_key_press(char key);
     void handle_key_release(char key);
     void update();
+    virtual Rectangle get_position() override;
+
+private:
+    double get_vx() override;
+
+    double get_vy() override;
 
 private:
     Rectangle position;

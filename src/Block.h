@@ -3,11 +3,14 @@
 
 #include <string>
 #include "rsdl.hpp"
+#include "Object.h"
+#include "Geometry.h"
 
-class Block {
+class Block : public Object {
 public:
     Block(Rectangle position, std::string image_addr);
-    void draw(Window& win);
+    void draw(rsdl::Window& win);
+    Rectangle get_position() override;
 
 private:
     Rectangle position;

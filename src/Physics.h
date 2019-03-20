@@ -3,5 +3,4 @@
 
 #define GRAVITATIONAL_ACCELERATION 0.8
 
-
 #endif

@@ -16,7 +16,7 @@ void Game::run_level(std::string level_addr) {
         update();
         draw();
 
-        delay(30);
+        rsdl::delay(30);
     }
 }
 
@@ -83,9 +83,9 @@ void Game::load_map_cell(int x, int y, char cell) {
 }
 
 void Game::draw() {
-//    draw_background();
+    draw_background();
     for (int i = 0; i < blocks.size(); i++) {
-//        blocks[i].draw(win);
+        blocks[i].draw(win);
     }
     mario->draw(win);
     win.update_screen();
@@ -97,16 +97,16 @@ Game::~Game() {
 
 void Game::handle_events() {
     while (win.has_pending_event()) {
-        Event e = win.poll_for_event();
+        rsdl::Event e = win.poll_for_event();
 
         switch (e.get_type()) {
-            case Event::KEY_PRESS:
+            case rsdl::Event::KEY_PRESS:
                 mario->handle_key_press(e.get_pressed_key());
                 break;
-            case Event::KEY_RELEASE:
+            case rsdl::Event::KEY_RELEASE:
                 mario->handle_key_release(e.get_pressed_key());
                 break;
-            case Event::QUIT:
+            case rsdl::Event::QUIT:
                 game_running = false;
                 break;
         }

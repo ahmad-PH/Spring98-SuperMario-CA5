@@ -24,7 +24,7 @@ private:
     void handle_events();
     void update();
 
-    Window win;
+    rsdl::Window win;
     int camera_x;
 
     bool game_running;
