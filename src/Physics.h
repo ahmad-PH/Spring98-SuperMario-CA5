@@ -1,4 +1,7 @@
 #ifndef SRC_PHYSICS_H
 #define SRC_PHYSICS_H
 
+#define GRAVITATIONAL_ACCELERATION 0.8
+
+
 #endif

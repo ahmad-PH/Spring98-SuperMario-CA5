@@ -22,6 +22,7 @@ private:
     void load_level(std::string level_addr);
     void load_map_cell(int x, int y, char cell);
     void handle_events();
+    void update();
 
     Window win;
     int camera_x;

@@ -7,6 +7,20 @@ Game::Game() : win(800, 480) {
     camera_x = 0;
 }
 
+void Game::run_level(std::string level_addr) {
+    load_level(level_addr);
+    game_running = true;
+
+    while(game_running) {
+        handle_events();
+        update();
+        draw();
+
+        delay(30);
+    }
+}
+
+
 void Game::draw_background() {
 
     const int bg_width = 2000, bg_height = 1000;
@@ -52,18 +66,6 @@ void Game::load_level(string level_addr) {
     }
 }
 
-void Game::run_level(std::string level_addr) {
-    load_level(level_addr);
-    game_running = true;
-
-    while(game_running) {
-        handle_events();
-        draw();
-
-        SDL_Delay(100);
-    }
-}
-
 void Game::load_map_cell(int x, int y, char cell) {
     Rectangle position(x * CELL_SIZE_PX, y * CELL_SIZE_PX, CELL_SIZE_PX, CELL_SIZE_PX);
 
@@ -81,12 +83,11 @@ void Game::load_map_cell(int x, int y, char cell) {
 }
 
 void Game::draw() {
-    draw_background();
+//    draw_background();
     for (int i = 0; i < blocks.size(); i++) {
-        blocks[i].draw(win);
+//        blocks[i].draw(win);
     }
     mario->draw(win);
-
     win.update_screen();
 }
 
@@ -110,5 +111,9 @@ void Game::handle_events() {
                 break;
         }
     }
+}
+
+void Game::update() {
+    mario->update();
 }
 

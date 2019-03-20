@@ -1,9 +1,6 @@
-//
-// Created by ahmad on 3/18/19.
-//
-
 #include "Mario.h"
 #include "AssetsAddresses.h"
+#include "Physics.h"
 
 using namespace std;
 
@@ -11,9 +8,13 @@ Mario::Mario(Rectangle _position) : position(_position) {
     state = STANDING;
     direction = RIGHT;
     strength = NORMAL;
-    ay = +10;
-    exact_x = _position.x;
-    exact_y = _position.y;
+
+    exact_x = position.x;
+    exact_y = position.y;
+    cout<<"mario position:"<<position<<endl;
+
+    vx = vy = ax = 0;
+    ay = GRAVITATIONAL_ACCELERATION;
 }
 
 void Mario::draw(Window& win) {
@@ -45,9 +46,9 @@ void Mario::draw(Window& win) {
 void Mario::handle_key_press(char key) {
 
     if (key == 'd') {
-        ax = 5;
+        ax = 0.5;
     } else if (key == 'a') {
-        ax = -5;
+        ax = -0.5;
     } else if (key == 'w') {
         if (state != JUMPING) {
             vy = -10;
@@ -61,14 +62,30 @@ void Mario::handle_key_release(char key) {
     } else if (key == 'a' && ax < 0) {
         ax = 0;
     } else if (key == 'w' && ay == 0) {
-        ay = ;
+        ay = GRAVITATIONAL_ACCELERATION;
     }
 }
 
+#include <ctime>
+#include <chrono>
+auto t_start = std::chrono::high_resolution_clock::now();
+
 void Mario::update() {
+
+//    auto t_end = std::chrono::high_resolution_clock::now();
+//    cout<<"duration: "<<std::chrono::duration<double, std::milli>(t_end - t_start).count()<<endl;
+//    cout<<"updated pos:"<<position<<endl;
+//    cout<<"vx: "<<vx<<" vy: "<<vy<<endl;
+//    cout<<"ax: "<<ax<<" ay: "<<ay<<endl;
     exact_x += vx;
-    vx += ax;
+    vx = max(min(vx + ax, max_vx), -max_vx);
     exact_y += vy;
-    vy += ay;
-    position = Rectangle(exact_x, exact_x, position.w, position.h);
+    vy = min(vy + ay, max_vy);
+    position = Rectangle(exact_x, exact_y, position.w, position.h);
+
+//    t_start = std::chrono::high_resolution_clock::now();
 }
+
+
+double Mario::max_vx = 4;
+double Mario::max_vy = 8;

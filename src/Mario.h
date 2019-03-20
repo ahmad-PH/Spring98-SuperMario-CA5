@@ -19,10 +19,11 @@ private:
     enum Direction {LEFT, RIGHT} direction;
     enum Strength {NORMAL, BIG} strength;
 
-    float vx, vy;
-    float ax, ay;
-    float exact_x, exact_y;
+    double vx, vy;
+    double ax, ay;
+    double exact_x, exact_y;
 
+    static double max_vx, max_vy;
 };
 
 
