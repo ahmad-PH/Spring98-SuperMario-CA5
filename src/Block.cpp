@@ -1,10 +1,11 @@
 #include "Block.h"
+#include "utility.h"
 
-Block::Block(Rectangle _position, std::string image_addr) : position(_position){
+Block::Block(ExactRectangle _position, std::string image_addr) : position(_position){
     this->image_addr = image_addr;
 }
 
 void Block::draw(rsdl::Window &win) {
-    win.draw_img(image_addr, position);
+    win.draw_img(image_addr, convertToRectangle(position));
 }
 

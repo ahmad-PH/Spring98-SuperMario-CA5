@@ -37,8 +37,7 @@ void Mario::draw(rsdl::Window& win) {
 
     address += ".png";
 
-    rsdl::Rectangle drawing_position((int)position.x, (int)position.y, position.w, position.h);
-    win.draw_img(address, drawing_position);
+    win.draw_img(address, convertToRectangle(position));
 }
 
 void Mario::handle_key_press(char key) {
@@ -72,21 +71,6 @@ auto t_start = std::chrono::high_resolution_clock::now();
 double Mario::max_vx = 4;
 double Mario::max_vy = 8;
 
-ExactRectangle Mario::get_position() const{
-    return position;
-}
-
-double Mario::get_vx() {
-    return vx;
-}
-
-double Mario::get_vy() {
-    return vy;
-}
-
-void Mario::set_position(ExactRectangle position) {
-    this->position = position;
-}
 
 void Mario::set_vx(double vx) {
     this->vx = closest_in_interval(vx, -max_vx, max_vx);

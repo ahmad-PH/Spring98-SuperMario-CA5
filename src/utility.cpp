@@ -8,3 +8,7 @@ double closest_in_interval(double val, double interval_begin,
         return interval_begin;
     return val;
 }
+
+rsdl::Rectangle convertToRectangle(ExactRectangle r) {
+    return rsdl::Rectangle((int)r.x, (int)r.y, r.w, r.h);
+}

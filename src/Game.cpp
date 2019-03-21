@@ -32,22 +32,22 @@ void Game::draw_background() {
     if (!reached_end) {
         win.draw_img(
                 BG_IMG_ADDR,
-                Rectangle(0, 0, win.get_width(), win.get_height()),
-                Rectangle(bg_x, bg_y, win.get_width(), win.get_height())
+                rsdl::Rectangle(0, 0, win.get_width(), win.get_height()),
+                rsdl::Rectangle(bg_x, bg_y, win.get_width(), win.get_height())
         );
     } else {
         int first_part_width = bg_width - bg_x;
         int second_part_width = win.get_width() - first_part_width;
         win.draw_img(
                 BG_IMG_ADDR,
-                Rectangle(0, 0, first_part_width, win.get_height()),
-                Rectangle(bg_x, bg_y, first_part_width, win.get_height())
+                rsdl::Rectangle(0, 0, first_part_width, win.get_height()),
+                rsdl::Rectangle(bg_x, bg_y, first_part_width, win.get_height())
         );
 
         win.draw_img(
                 BG_IMG_ADDR,
-                Rectangle(first_part_width, 0, second_part_width, win.get_height()),
-                Rectangle(0, bg_y, second_part_width, win.get_height())
+                rsdl::Rectangle(first_part_width, 0, second_part_width, win.get_height()),
+                rsdl::Rectangle(0, bg_y, second_part_width, win.get_height())
         );
 
     }
@@ -67,7 +67,7 @@ void Game::load_level(string level_addr) {
 }
 
 void Game::load_map_cell(int x, int y, char cell) {
-    Rectangle position(x * CELL_SIZE_PX, y * CELL_SIZE_PX, CELL_SIZE_PX, CELL_SIZE_PX);
+    ExactRectangle position(x * CELL_SIZE_PX, y * CELL_SIZE_PX, CELL_SIZE_PX, CELL_SIZE_PX);
 
     switch(cell) {
         case '#':
@@ -120,7 +120,7 @@ void Game::update() {
 void Game::update_mario() {
     mario->move_one_frame();
     for (int i = 0; i < blocks.size(); i++) {
-        
+
     }
 }
 
