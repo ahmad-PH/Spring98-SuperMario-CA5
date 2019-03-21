@@ -114,6 +114,13 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    mario->update();
+    update_mario();
+}
+
+void Game::update_mario() {
+    mario->move_one_frame();
+    for (int i = 0; i < blocks.size(); i++) {
+        
+    }
 }
 

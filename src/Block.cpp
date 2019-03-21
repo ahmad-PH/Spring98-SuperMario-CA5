@@ -8,6 +8,3 @@ void Block::draw(rsdl::Window &win) {
     win.draw_img(image_addr, position);
 }
 
-Rectangle Block::get_position() {
-    return position;
-}

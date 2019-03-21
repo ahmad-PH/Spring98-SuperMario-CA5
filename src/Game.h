@@ -23,6 +23,7 @@ private:
     void load_map_cell(int x, int y, char cell);
     void handle_events();
     void update();
+    void update_mario();
 
     rsdl::Window win;
     int camera_x;

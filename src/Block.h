@@ -10,8 +10,6 @@ class Block : public Object {
 public:
     Block(Rectangle position, std::string image_addr);
     void draw(rsdl::Window& win);
-    Rectangle get_position() override;
-
 private:
     Rectangle position;
     std::string image_addr;
