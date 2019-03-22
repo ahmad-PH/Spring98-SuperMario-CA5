@@ -57,11 +57,11 @@ void MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obs
             new_pos.y = obstacles[i]->get_position().y + obstacles[i]->get_position().h;
             new_vy = 0;
         }
-        if (collision.from_right) {
+        if (collision.from_left) {
             new_pos.x = obstacles[i]->get_position().x - new_pos.w;
             new_vx = 0;
         }
-        if (collision.from_left) {
+        if (collision.from_right) {
             new_pos.x = obstacles[i]->get_position().x + obstacles[i]->get_position().w;
             new_vx = 0;
         }
