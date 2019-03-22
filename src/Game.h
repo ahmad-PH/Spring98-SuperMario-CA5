@@ -5,6 +5,7 @@
 #include "AssetsAddresses.h"
 #include "Mario.h"
 #include "Block.h"
+#include "Brick.h"
 #include <string>
 #include <vector>
 
@@ -23,6 +24,9 @@ private:
     void load_map_cell(int x, int y, char cell);
     void handle_events();
     void update();
+    void add_block(Block* block);
+    void add_brick(Brick* brick);
+    void remove_brick(Brick* brick);
 
     rsdl::Window win;
     int camera_x;
@@ -31,7 +35,8 @@ private:
 
     Mario* mario;
     std::vector<Block*> blocks;
-//    std::vector<Brick> bricks;
+    std::vector<Brick*> bricks;
+    std::vector<Object*> obstacles;
 
 };
 

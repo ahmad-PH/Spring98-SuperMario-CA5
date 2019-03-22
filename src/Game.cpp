@@ -72,13 +72,15 @@ void Game::load_map_cell(int x, int y, char cell) {
 
     switch(cell) {
         case '#':
-            blocks.push_back(new Block(position, GROUND_BLOCK_ADDR)); break;
+            add_block(new Block(position, GROUND_BLOCK_ADDR)); break;
         case '@':
-            blocks.push_back(new Block(position, REGULAR_BLOCK_ADDR)); break;
+            add_block(new Block(position, REGULAR_BLOCK_ADDR)); break;
         case 'M':
             mario = new Mario(position); break;
-//        case 'b'
-//            bricks.push_back()
+        case 'b':
+            add_brick(new RegularBrick(position)); break;
+        case '?':
+            add_brick(new QuestionBrick(position)); break;
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -90,6 +92,9 @@ void Game::draw() {
     for (int i = 0; i < blocks.size(); i++) {
         blocks[i]->draw(win);
     }
+    for (int i = 0; i < bricks.size(); i++) {
+        bricks[i]->draw(win);
+    }
     mario->draw(win);
     win.update_screen();
 }
@@ -97,6 +102,7 @@ void Game::draw() {
 Game::~Game() {
     delete mario;
     delete_vector(blocks);
+    delete_vector(bricks);
 }
 
 void Game::handle_events() {
@@ -118,5 +124,21 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    mario->update(cast_vector_elements<Block, Object>(blocks));
+    mario->update(obstacles);
 }
+
+void Game::add_block(Block* block) {
+    blocks.push_back(block);
+    obstacles.push_back(block);
+}
+
+void Game::add_brick(Brick* brick) {
+    bricks.push_back(brick);
+    obstacles.push_back(brick);
+}
+
+void Game::remove_brick(Brick *brick) {
+    bricks.erase(bricks.begin() + find_in_vector(bricks, brick));
+    obstacles.erase(obstacles.begin() + find_in_vector(obstacles, (Object*)brick));
+}
+

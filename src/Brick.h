@@ -7,6 +7,17 @@
 class Brick : public Object {
 public:
     Brick(ExactRectangle position);
+};
+
+class RegularBrick : public Brick {
+public:
+    using Brick::Brick;
+    void draw(rsdl::Window &win) override;
+};
+
+class QuestionBrick : public Brick {
+public:
+    QuestionBrick(ExactRectangle position);
     void draw(rsdl::Window &win) override;
 };
 

@@ -22,7 +22,7 @@ private:
     void update_direction();
     bool is_touching_ground(const std::vector<Object*>& obstacles);
     void apply_friction();
-    void handle_jump_timer();
+    void handle_jump_continuation();
 
     enum State {STANDING, WALKING, JUMPING} state;
     enum Direction {LEFT, RIGHT} direction;
@@ -30,6 +30,7 @@ private:
 
     int walking_counter, walking_index;
     int jump_timer;
+    bool jump_key_held;
 
     static const double max_vx, max_vy;
     static const double friction_constant;
