@@ -120,6 +120,9 @@ void Game::handle_events() {
 
 void Game::update() {
     mario->update(obstacles);
+    for (int i = 0; i < bricks.size(); i++) {
+        bricks[i]->update();
+    }
 }
 
 void Game::add_block(Block* block) {

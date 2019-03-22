@@ -4,6 +4,7 @@
 #include "rsdl.hpp"
 #include "Object.h"
 #include "Geometry.h"
+#include "AnimationIndexHandler.h"
 #include <string>
 
 class Mario : public MovingObject {
@@ -28,9 +29,9 @@ private:
     enum Direction {LEFT, RIGHT} direction;
     enum Strength {NORMAL, BIG} strength;
 
-    int walking_counter, walking_index;
     int jump_timer;
     bool jump_key_held;
+    AnimationIndexHandler walk_index_handler;
 
     static const double max_vx, max_vy;
     static const double friction_constant, stop_threshold;

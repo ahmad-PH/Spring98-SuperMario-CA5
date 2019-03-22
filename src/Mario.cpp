@@ -9,12 +9,11 @@ using namespace std;
 const double Mario::max_vx = 20;
 const double Mario::max_vy = 30;
 const double Mario::friction_constant = 0.11, Mario::stop_threshold = 5;
-const int Mario::walking_counter_divider = 1000;
-const int Mario::n_walking_frames = 3;
 const int Mario::max_jump_time = 5;
 
+Mario::Mario(ExactRectangle _position) :
+    walk_index_handler(2,3) {
 
-Mario::Mario(ExactRectangle _position) {
     state = STANDING;
     direction = RIGHT;
     strength = NORMAL;
@@ -47,7 +46,7 @@ void Mario::draw(rsdl::Window& win) {
         address += "-left";
 
     if (state == WALKING) {
-        address+= "-" + to_string(walking_index + 1);
+        address+= "-" + to_string(walk_index_handler.current() + 1);
     }
 
     address += ".png";
@@ -122,10 +121,9 @@ void Mario::update_state(const std::vector<Object *> &obstacles) {
             state = SLIDING;
         } else if (state != WALKING) {
             state = WALKING;
-            walking_counter = walking_index = 0;
+            walk_index_handler.reset();
         } else {
-            walking_counter++;
-            walking_index = (walking_counter % walking_counter_divider) % n_walking_frames;
+            walk_index_handler.next();
         }
     } else {
         state = STANDING;
