@@ -3,6 +3,7 @@
 
 #include "Geometry.h"
 #include "Object.h"
+#include "AnimationIndexHandler.h"
 
 class Brick : public Object {
 public:
@@ -22,8 +23,7 @@ public:
     void draw(rsdl::Window &win) override;
     virtual void update();
 private:
-    int animation_counter, animation_index;
-    const static int animation_counter_divider, n_animation_frames;
+    AnimationIndexHandler animation_index_handler;
 };
 
 
