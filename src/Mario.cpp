@@ -11,6 +11,7 @@ const double Mario::max_vy = 25;
 const double Mario::friction_constant = 0.15;
 const int Mario::walking_counter_divider = 1000;
 const int Mario::n_walking_frames = 3;
+const int Mario::max_jump_time = 6;
 
 
 Mario::Mario(ExactRectangle _position) {
@@ -60,7 +61,9 @@ void Mario::handle_key_press(char key) {
         ax = -2;
     } else if (key == 'w') {
         if (state != JUMPING) {
-            vy = -10;
+            vy = -15;
+            ay = 0;
+            jump_timer = max_jump_time;
         }
     }
 }
@@ -71,8 +74,9 @@ void Mario::handle_key_release(char key) {
         ax = 0;
     } else if (key == 'a' && ax < 0) {
         ax = 0;
-    } else if (key == 'w' && ay == 0) {
+    } else if (key == 'w') {
         ay = GRAVITATIONAL_ACCELERATION;
+        jump_timer = 0;
     }
 }
 
@@ -100,6 +104,7 @@ void Mario::update(const std::vector<Object *> &obstacles) {
     apply_friction();
     update_state(obstacles);
     update_direction();
+    handle_jump_timer();
 }
 
 void Mario::update_state(const std::vector<Object *> &obstacles) {
@@ -153,4 +158,11 @@ void Mario::apply_friction() {
                 vx = 0;
         }
     }
+}
+
+void Mario::handle_jump_timer() {
+    if (jump_timer > 0)
+        jump_timer--;
+    if (jump_timer == 0)
+        ay = GRAVITATIONAL_ACCELERATION;
 }
