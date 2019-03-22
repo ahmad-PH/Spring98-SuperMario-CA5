@@ -76,7 +76,7 @@ void Game::load_map_cell(int x, int y, char cell) {
         case '@':
             add_block(new Block(position, REGULAR_BLOCK_ADDR)); break;
         case 'M':
-            mario = new Mario(position); break;
+            set_mario(new Mario(position)); break;
         case 'b':
             add_brick(new RegularBrick(position)); break;
         case '?':
@@ -89,13 +89,8 @@ void Game::load_map_cell(int x, int y, char cell) {
 
 void Game::draw() {
     draw_background();
-    for (int i = 0; i < blocks.size(); i++) {
-        blocks[i]->draw(win);
-    }
-    for (int i = 0; i < bricks.size(); i++) {
-        bricks[i]->draw(win);
-    }
-    mario->draw(win);
+    for (int i = 0; i < objects.size(); i++)
+        objects[i]->draw(win);
     win.update_screen();
 }
 
@@ -130,15 +125,23 @@ void Game::update() {
 void Game::add_block(Block* block) {
     blocks.push_back(block);
     obstacles.push_back(block);
+    objects.push_back(block);
 }
 
 void Game::add_brick(Brick* brick) {
     bricks.push_back(brick);
     obstacles.push_back(brick);
+    objects.push_back(brick);
 }
 
 void Game::remove_brick(Brick *brick) {
     bricks.erase(bricks.begin() + find_in_vector(bricks, brick));
     obstacles.erase(obstacles.begin() + find_in_vector(obstacles, (Object*)brick));
+    objects.erase(objects.begin() + find_in_vector(objects, (Object*)brick));
+}
+
+void Game::set_mario(Mario *mario) {
+    this->mario = mario;
+    objects.push_back(mario);
 }
 

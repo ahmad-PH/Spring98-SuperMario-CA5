@@ -24,6 +24,7 @@ private:
     void load_map_cell(int x, int y, char cell);
     void handle_events();
     void update();
+    void set_mario(Mario* mario);
     void add_block(Block* block);
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
@@ -37,6 +38,7 @@ private:
     std::vector<Block*> blocks;
     std::vector<Brick*> bricks;
     std::vector<Object*> obstacles;
+    std::vector<Object*> objects;
 
 };
 
