@@ -23,7 +23,6 @@ private:
     void load_map_cell(int x, int y, char cell);
     void handle_events();
     void update();
-    void update_mario();
 
     rsdl::Window win;
     int camera_x;
@@ -31,7 +30,8 @@ private:
     bool game_running;
 
     Mario* mario;
-    std::vector<Block> blocks;
+    std::vector<Block*> blocks;
+//    std::vector<Brick> bricks;
 
 };
 

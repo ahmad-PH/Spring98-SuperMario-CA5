@@ -8,7 +8,7 @@ using namespace std;
 
 const double Mario::max_vx = 15;
 const double Mario::max_vy = 25;
-const double Mario::friction_constant = 0.15;
+const double Mario::friction_constant = 0.18;
 const int Mario::walking_counter_divider = 1000;
 const int Mario::n_walking_frames = 3;
 const int Mario::max_jump_time = 6;

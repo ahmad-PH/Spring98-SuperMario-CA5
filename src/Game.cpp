@@ -72,13 +72,13 @@ void Game::load_map_cell(int x, int y, char cell) {
 
     switch(cell) {
         case '#':
-            blocks.push_back(Block(position, GROUND_BLOCK_ADDR));
-//            cout<<"pushed block at : "<<position<<endl;
-            break;
+            blocks.push_back(new Block(position, GROUND_BLOCK_ADDR)); break;
+        case '@':
+            blocks.push_back(new Block(position, REGULAR_BLOCK_ADDR)); break;
         case 'M':
-            mario = new Mario(position);
-            cout<<"pushing mario at:"<<position<<endl;
-            break;
+            mario = new Mario(position); break;
+//        case 'b'
+//            bricks.push_back()
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -88,7 +88,7 @@ void Game::load_map_cell(int x, int y, char cell) {
 void Game::draw() {
     draw_background();
     for (int i = 0; i < blocks.size(); i++) {
-        blocks[i].draw(win);
+        blocks[i]->draw(win);
     }
     mario->draw(win);
     win.update_screen();
@@ -96,6 +96,7 @@ void Game::draw() {
 
 Game::~Game() {
     delete mario;
+    delete_vector(blocks);
 }
 
 void Game::handle_events() {
@@ -117,9 +118,5 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    mario->update(create_references_vector<Block, Object>(blocks));
+    mario->update(cast_vector_elements<Block, Object>(blocks));
 }
-
-void Game::update_mario() {
-}
-
