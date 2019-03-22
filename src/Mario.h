@@ -12,16 +12,22 @@ public:
     void draw(rsdl::Window& win);
     void handle_key_press(char key);
     void handle_key_release(char key);
-    virtual void move_one_frame();
     void set_vx(double vx) override;
     void set_vy(double vy) override;
+    void update(const std::vector<Object *> &obstacles);
 
 private:
+    virtual void move_one_frame();
+
+    void apply_friction();
+    void update_state(const std::vector<Object*>& obstacles);
+
     enum State {STANDING, WALKING, JUMPING} state;
     enum Direction {LEFT, RIGHT} direction;
     enum Strength {NORMAL, BIG} strength;
 
     static double max_vx, max_vy;
+    static double friction_constant;
 };
 
 

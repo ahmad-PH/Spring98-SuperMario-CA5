@@ -1,7 +1,8 @@
 #include "Block.h"
 #include "utility.h"
 
-Block::Block(ExactRectangle _position, std::string image_addr) : position(_position){
+Block::Block(ExactRectangle position, std::string image_addr) {
+    this->position = position;
     this->image_addr = image_addr;
 }
 

@@ -18,4 +18,6 @@ template <typename Sub, typename Base> std::vector<Base*> create_references_vect
     return result;
 }
 
+bool compare_floats(double a, double b, double epsilon = 0.1);
+
 #endif

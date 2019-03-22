@@ -35,34 +35,34 @@ using namespace std;
 void MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obstacles) {
     for (int i = 0; i < obstacles.size(); i++) {
 //        cout<<"comparing with: "<<obstacles[i]->get_position()<<endl;
-        if (compare_floats(obstacles[i]->get_position().x, 64) && compare_floats(obstacles[i]->get_position().y, 416) && get_vy() != 0) {
-            cout<<"comparing with 64"<<endl;
-            cout<<get_position()<<" "<<obstacles[i]->get_position()<<endl;
-        }
+//        if (compare_floats(obstacles[i]->get_position().x, 64) && compare_floats(obstacles[i]->get_position().y, 416) && get_vy() != 0) {
+//            cout<<"comparing with 64"<<endl;
+//            cout<<get_position()<<" "<<obstacles[i]->get_position()<<endl;
+//        }
 
         Collision collision = check_collision_on_next_frame(obstacles[i]);
         if (collision == Collision::NO_COLLISION)
             continue;
 
-        cout<<"collision detected with "<<obstacles[i]->get_position()<<" ";
-        cout<<collision.from_top<<collision.from_bottom<<collision.from_left<<collision.from_right<<endl;
+//        cout<<"collision detected with "<<obstacles[i]->get_position()<<" ";
+//        cout<<collision.from_top<<collision.from_bottom<<collision.from_left<<collision.from_right<<endl;
 
         ExactRectangle new_pos = get_position();
         double new_vx = get_vx(), new_vy = get_vy();
         if (collision.from_top) {
-            new_pos.y = obstacles[i]->get_position().y - new_pos.h - 1;
+            new_pos.y = obstacles[i]->get_position().y - new_pos.h;
             new_vy = 0;
         }
         if (collision.from_bottom) {
-            new_pos.y = obstacles[i]->get_position().y + obstacles[i]->get_position().h + 1;
+            new_pos.y = obstacles[i]->get_position().y + obstacles[i]->get_position().h;
             new_vy = 0;
         }
         if (collision.from_right) {
-            new_pos.x = obstacles[i]->get_position().x - new_pos.w - 1;
+            new_pos.x = obstacles[i]->get_position().x - new_pos.w;
             new_vx = 0;
         }
         if (collision.from_left) {
-            new_pos.x = obstacles[i]->get_position().x + obstacles[i]->get_position().w + 1;
+            new_pos.x = obstacles[i]->get_position().x + obstacles[i]->get_position().w;
             new_vx = 0;
         }
 

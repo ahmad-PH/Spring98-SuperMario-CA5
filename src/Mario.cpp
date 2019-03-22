@@ -5,6 +5,13 @@
 
 using namespace std;
 
+
+double Mario::max_vx = 4;
+double Mario::max_vy = 8;
+double Mario::friction_constant = 0.5;
+
+
+
 Mario::Mario(ExactRectangle _position) {
     state = STANDING;
     direction = RIGHT;
@@ -67,10 +74,6 @@ void Mario::handle_key_release(char key) {
 //#include <chrono>
 //auto t_start = std::chrono::high_resolution_clock::now();
 
-double Mario::max_vx = 4;
-double Mario::max_vy = 8;
-
-
 void Mario::set_vx(double vx) {
     this->vx = closest_in_interval(vx, -max_vx, max_vx);
 }
@@ -81,7 +84,44 @@ void Mario::set_vy(double vy) {
 
 void Mario::move_one_frame() {
     MovingObject::move_one_frame();
+    apply_friction();
     vx = max(min(vx, max_vx), -max_vx);
     vy = max(min(vy + ay, max_vy), -max_vy);
 }
+
+void Mario::apply_friction() {
+    cout<<"in apply friction: "<<state<<endl;
+    if (state == WALKING) {
+        if (vx > 0)
+            vx = max(vx-friction_constant, 0.0);
+        else if (vx < 0)
+            vx = min(vx+friction_constant, 0.0);
+    }
+}
+
+
+void Mario::update(const std::vector<Object *> &obstacles) {
+    move_one_frame_with_obstacles(obstacles);
+    update_state(obstacles);
+    apply_friction();
+}
+
+void Mario::update_state(const std::vector<Object *> &obstacles) {
+    cout<<"in update state, mario pos: "<<get_position()<<endl;
+    bool touching_ground = false;
+    for (int i = 0; i < obstacles.size(); i++) {
+        if (compare_floats(obstacles[i]->get_position().y, position.y + position.h)) {
+            touching_ground = true;
+            cout<<"mario: "<<get_position()<<" is touching: "<<obstacles[i]->get_position()<<endl;
+        }
+    }
+    if (!touching_ground)
+        state = JUMPING;
+    else if (vx != 0)
+        state = WALKING;
+    else
+        state = STANDING;
+}
+
+
 

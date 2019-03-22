@@ -73,10 +73,12 @@ void Game::load_map_cell(int x, int y, char cell) {
     switch(cell) {
         case '#':
             blocks.push_back(Block(position, GROUND_BLOCK_ADDR));
+//            cout<<"pushed block at : "<<position<<endl;
             break;
         case 'M':
             mario = new Mario(position);
-
+            cout<<"pushing mario at:"<<position<<endl;
+            break;
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -115,7 +117,7 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    mario->move_one_frame_with_obstacles(create_references_vector<Block, Object>(blocks));
+    mario->update(create_references_vector<Block, Object>(blocks));
 }
 
 void Game::update_mario() {

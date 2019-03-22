@@ -12,3 +12,7 @@ double closest_in_interval(double val, double interval_begin,
 rsdl::Rectangle convertToRectangle(ExactRectangle r) {
     return rsdl::Rectangle((int)r.x, (int)r.y, r.w, r.h);
 }
+
+bool compare_floats(double a, double b, double epsilon) {
+    return fabs(a - b) < epsilon;
+}

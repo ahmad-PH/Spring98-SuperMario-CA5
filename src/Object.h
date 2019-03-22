@@ -29,7 +29,7 @@ public:
     virtual void set_vx(double vx) { this->vx = vx; }
     virtual void set_vy(double vy) { this->vy = vy; }
     Collision check_collision_on_next_frame(const Object* o);
-    void move_one_frame_with_obstacles(const std::vector<Object*>& obstacles);
+    virtual void move_one_frame_with_obstacles(const std::vector<Object*>& obstacles);
     virtual void move_one_frame();
 protected:
     double vx, vy;

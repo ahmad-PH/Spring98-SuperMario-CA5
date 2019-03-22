@@ -16,5 +16,7 @@ struct ExactRectangle {
     double x,y;
     int w,h;
 };
+std::ostream &operator<<(std::ostream &stream, const ExactRectangle);
+
 
 #endif

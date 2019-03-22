@@ -11,7 +11,6 @@ public:
     Block(ExactRectangle position, std::string image_addr);
     void draw(rsdl::Window& win);
 private:
-    ExactRectangle position;
     std::string image_addr;
 };
 
