@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "utility.h"
 #include <fstream>
 
 using namespace std;
@@ -114,13 +115,9 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    update_mario();
+    mario->move_one_frame_with_obstacles(create_references_vector<Block, Object>(blocks));
 }
 
 void Game::update_mario() {
-    mario->move_one_frame();
-    for (int i = 0; i < blocks.size(); i++) {
-
-    }
 }
 

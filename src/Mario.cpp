@@ -63,10 +63,9 @@ void Mario::handle_key_release(char key) {
     }
 }
 
-#include <ctime>
-#include <chrono>
-auto t_start = std::chrono::high_resolution_clock::now();
-
+//#include <ctime>
+//#include <chrono>
+//auto t_start = std::chrono::high_resolution_clock::now();
 
 double Mario::max_vx = 4;
 double Mario::max_vy = 8;
@@ -81,18 +80,8 @@ void Mario::set_vy(double vy) {
 }
 
 void Mario::move_one_frame() {
-
-//    auto t_end = std::chrono::high_resolution_clock::now();
-//    cout<<"duration: "<<std::chrono::duration<double, std::milli>(t_end - t_start).count()<<endl;
-//    cout<<"updated pos:"<<position<<endl;
-//    cout<<"vx: "<<vx<<" vy: "<<vy<<endl;
-//    cout<<"ax: "<<ax<<" ay: "<<ay<<endl;
-    position.x += vx;
-    vx = max(min(vx + ax, max_vx), -max_vx);
-    position.y += vy;
-    vy = min(vy + ay, max_vy);
-    position = ExactRectangle(position.x, position.y, position.w, position.h);
-
-//    t_start = std::chrono::high_resolution_clock::now();
-
+    MovingObject::move_one_frame();
+    vx = max(min(vx, max_vx), -max_vx);
+    vy = max(min(vy + ay, max_vy), -max_vy);
 }
+

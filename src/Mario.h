@@ -12,7 +12,7 @@ public:
     void draw(rsdl::Window& win);
     void handle_key_press(char key);
     void handle_key_release(char key);
-    void move_one_frame();
+    virtual void move_one_frame();
     void set_vx(double vx) override;
     void set_vy(double vy) override;
 
