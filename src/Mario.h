@@ -18,16 +18,21 @@ public:
 
 private:
     virtual void move_one_frame();
-
-    void apply_friction();
     void update_state(const std::vector<Object*>& obstacles);
+    void update_direction();
+    bool is_touching_ground(const std::vector<Object*>& obstacles);
+    void apply_friction();
 
     enum State {STANDING, WALKING, JUMPING} state;
     enum Direction {LEFT, RIGHT} direction;
     enum Strength {NORMAL, BIG} strength;
 
-    static double max_vx, max_vy;
-    static double friction_constant;
+    int walking_counter, walking_index;
+
+    static const double max_vx, max_vy;
+    static const double friction_constant;
+    static const int walking_counter_divider, n_walking_frames;
+
 };
 
 
