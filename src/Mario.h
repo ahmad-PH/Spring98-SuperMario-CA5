@@ -24,7 +24,7 @@ private:
     void apply_friction();
     void handle_jump_continuation();
 
-    enum State {STANDING, WALKING, JUMPING} state;
+    enum State {STANDING, WALKING, JUMPING, SLIDING} state;
     enum Direction {LEFT, RIGHT} direction;
     enum Strength {NORMAL, BIG} strength;
 
@@ -33,7 +33,7 @@ private:
     bool jump_key_held;
 
     static const double max_vx, max_vy;
-    static const double friction_constant;
+    static const double friction_constant, stop_threshold;
     static const int walking_counter_divider, n_walking_frames;
     static const int max_jump_time;
 

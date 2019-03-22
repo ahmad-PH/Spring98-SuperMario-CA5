@@ -17,7 +17,7 @@ void Game::run_level(std::string level_addr) {
         update();
         draw();
 
-        rsdl::delay(100);
+        rsdl::delay(90);
     }
 }
 
