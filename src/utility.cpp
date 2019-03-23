@@ -16,3 +16,7 @@ rsdl::Rectangle convert_to_rectangle(ExactRectangle r) {
 bool compare_floats(double a, double b, double epsilon) {
     return fabs(a - b) < epsilon;
 }
+
+void show_text(rsdl::Window& win, std::string text, rsdl::Point position) {
+    win.show_text(text, position, rsdl::WHITE, "../assets/fonts/FreeSans.ttf");
+}

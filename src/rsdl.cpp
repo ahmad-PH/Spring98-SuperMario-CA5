@@ -128,7 +128,7 @@ void Window::show_text(string input, Point src, RGB color, string font_addr,
     font = TTF_OpenFont(font_addr.c_str(), size);
     fonts_cache[font_addr + ":" + ss.str()] = font;
     if (font == NULL)
-      throw runtime_error("Font Not Found: " + font_addr);
+      throw runtime_error("Font not found: " + font_addr);
   }
   SDL_Surface *textSurface =
       TTF_RenderText_Solid(font, input.c_str(), textColor);

@@ -32,4 +32,7 @@ template <typename T> int find_in_vector(std::vector<T> vec, T value) {
     return -1;
 }
 
+void show_text(rsdl::Window& win, std::string text, rsdl::Point position);
+
+
 #endif

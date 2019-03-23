@@ -7,6 +7,7 @@ using namespace std;
 Game::Game() : win(800, 480) {
     camera_x = 0;
     n_coins = 0;
+    n_lives = 3;
 }
 
 void Game::run_level(std::string level_addr) {
@@ -94,6 +95,7 @@ void Game::draw() {
     draw_background();
     for (int i = 0; i < objects.size(); i++)
         objects[i]->draw(win, camera_x);
+    draw_banner();
     win.update_screen();
 }
 
@@ -174,5 +176,12 @@ void Game::add_object(Object *object) {
 
 void Game::increment_coin() {
     n_coins++;
+}
+
+void Game::draw_banner() {
+    show_text(win, "COINS", rsdl::Point(win.get_width()/3 - 50, 10));
+    show_text(win, to_string(n_coins), rsdl::Point(win.get_width()/3 - 20, 40));
+    show_text(win, "LIVES", rsdl::Point(win.get_width()*2/3 - 50, 10));
+    show_text(win, to_string(n_lives), rsdl::Point(win.get_width()*2/3 - 25, 40));
 }
 

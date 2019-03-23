@@ -38,12 +38,13 @@ private:
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
     void handle_object_interactions();
+    void draw_banner();
 
     rsdl::Window win;
     int camera_x;
     bool game_running;
     Mario* mario;
-    int n_coins;
+    int n_coins, n_lives;
 
     std::vector<Block*> blocks;
     std::vector<Brick*> bricks;
