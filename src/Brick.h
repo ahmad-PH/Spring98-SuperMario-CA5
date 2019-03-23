@@ -8,13 +8,20 @@
 class Brick : public Object {
 public:
     Brick(ExactRectangle position);
-    virtual void update() {}
+    virtual void update() = 0;
+    virtual void on_collision_with_mario(Collision collision) = 0;
 };
 
 class RegularBrick : public Brick {
 public:
-    using Brick::Brick;
+    RegularBrick(ExactRectangle position);
     virtual std::string get_image_addr() const;
+    virtual void update();
+    virtual void on_collision_with_mario(Collision collision);
+private:
+    double vy;
+    double original_y;
+    const static double bump_speed;
 };
 
 class QuestionBrick : public Brick {
@@ -22,6 +29,7 @@ public:
     QuestionBrick(ExactRectangle position);
     virtual std::string get_image_addr() const;
     virtual void update();
+    virtual void on_collision_with_mario(Collision collision);
 private:
     AnimationIndexHandler animation_index_handler;
 };

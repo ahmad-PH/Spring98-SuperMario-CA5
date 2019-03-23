@@ -5,12 +5,17 @@
 #include "Geometry.h"
 #include "rsdl.hpp"
 
+class Mario;
+class Enemy;
+class Brick;
+
 class Object {
 public:
     virtual ExactRectangle get_position() const { return position; }
     virtual void set_position(ExactRectangle position) { this->position = position; }
     virtual void draw(rsdl::Window& win, int camera_x);
     virtual std::string get_image_addr() const = 0;
+    bool collides(Object* object) const;
 protected:
     ExactRectangle position;
 };

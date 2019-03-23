@@ -30,6 +30,7 @@ private:
     void add_block(Block* block);
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
+    void handle_object_interactions();
 
 
     rsdl::Window win;

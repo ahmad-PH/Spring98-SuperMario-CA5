@@ -119,6 +119,7 @@ void Game::handle_events() {
 }
 
 void Game::update() {
+    handle_object_interactions();
     update_mario();
     update_camera();
     for (int i = 0; i < bricks.size(); i++) {
@@ -162,6 +163,13 @@ void Game::update_mario() {
         corrected_pos.x = camera_x;
         mario->set_position(corrected_pos);
         mario->set_vx(0);
+    }
+}
+
+void Game::handle_object_interactions() {
+    for (int i = 0; i < bricks.size(); i++) {
+        Collision collision = mario->check_collision_on_next_frame(bricks[i]);
+        bricks[i]->on_collision_with_mario(collision);
     }
 }
 

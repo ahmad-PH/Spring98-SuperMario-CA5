@@ -100,6 +100,10 @@ bool Collision::operator==(const Collision &c) {
 }
 
 void Object::draw(rsdl::Window &win, int camera_x) {
-    cout<<"draw: "<<camera_x<<endl;
+    cout << "draw: " << camera_x << endl;
     win.draw_img(get_image_addr(), convert_to_rectangle(get_position().relative_to_x(camera_x)));
+}
+
+bool Object::collides(Object *object) const {
+    return get_position().intersects(object->get_position());
 }
