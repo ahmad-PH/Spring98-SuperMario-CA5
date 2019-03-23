@@ -5,6 +5,8 @@
 #include "Geometry.h"
 #include "rsdl.hpp"
 
+#define GRAVITATIONAL_ACCELERATION 6.0
+
 class Game;
 
 class Object {

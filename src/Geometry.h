@@ -3,11 +3,6 @@
 
 #include "rsdl.hpp"
 
-//class Rectangle : public rsdl::Rectangle {
-//public:
-//    using rsdl::Rectangle::Rectangle;
-//};
-
 struct ExactRectangle {
     ExactRectangle(double x, double y, int w, int h);
     ExactRectangle() {}
