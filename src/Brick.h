@@ -7,7 +7,7 @@
 
 class Brick : public Object {
 public:
-    Brick(ExactRectangle position);
+    Brick(ExactRectangle position, Game* game);
     virtual void update();
     virtual void on_collision_with_mario(Collision collision);
 protected:
@@ -26,7 +26,7 @@ private:
 
 class QuestionBrick : public Brick {
 public:
-    QuestionBrick(ExactRectangle position);
+    QuestionBrick(ExactRectangle position, Game* game);
     virtual std::string get_image_addr() const;
     virtual void update();
     virtual void on_collision_with_mario(Collision collision);

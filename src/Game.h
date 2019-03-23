@@ -11,11 +11,16 @@
 
 #define CELL_SIZE_PX 32
 
+class Mario;
+
 class Game {
 public:
     Game();
     void run_level(std::string level_addr);
     ~Game();
+
+    std::vector<Object*> get_obstacles() const { return obstacles; }
+    int get_camera_x() const { return camera_x; }
 
 private:
     void load_level(std::string level_addr);
@@ -24,7 +29,6 @@ private:
     void draw();
     void handle_events();
     void update();
-    void update_mario();
     void update_camera();
     void set_mario(Mario* mario);
     void add_block(Block* block);

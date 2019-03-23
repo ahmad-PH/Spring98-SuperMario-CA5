@@ -72,15 +72,15 @@ void Game::load_map_cell(int x, int y, char cell) {
 
     switch(cell) {
         case '#':
-            add_block(new Block(position, GROUND_BLOCK_ADDR)); break;
+            add_block(new Block(position, GROUND_BLOCK_ADDR, this)); break;
         case '@':
-            add_block(new Block(position, REGULAR_BLOCK_ADDR)); break;
+            add_block(new Block(position, REGULAR_BLOCK_ADDR, this)); break;
         case 'M':
-            set_mario(new Mario(position)); break;
+            set_mario(new Mario(position, this)); break;
         case 'b':
-            add_brick(new RegularBrick(position)); break;
+            add_brick(new RegularBrick(position, this)); break;
         case '?':
-            add_brick(new QuestionBrick(position)); break;
+            add_brick(new QuestionBrick(position, this)); break;
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -120,11 +120,10 @@ void Game::handle_events() {
 
 void Game::update() {
     handle_object_interactions();
-    update_mario();
-    update_camera();
-    for (int i = 0; i < bricks.size(); i++) {
-        bricks[i]->update();
+    for (int i = 0; i < objects.size(); i++) {
+        objects[i]->update();
     }
+    update_camera();
 }
 
 void Game::add_block(Block* block) {
@@ -153,16 +152,6 @@ void Game::set_mario(Mario *mario) {
 void Game::update_camera() {
     if (mario->get_position().x >  camera_x + (win.get_width() / 2)) {
         camera_x = mario->get_position().x - (win.get_width() / 2);
-    }
-}
-
-void Game::update_mario() {
-    mario->update(obstacles);
-    if (mario->get_position().x < camera_x) {
-        ExactRectangle corrected_pos = mario->get_position();
-        corrected_pos.x = camera_x;
-        mario->set_position(corrected_pos);
-        mario->set_vx(0);
     }
 }
 

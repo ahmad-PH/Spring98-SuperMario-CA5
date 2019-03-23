@@ -9,10 +9,6 @@ Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     next_pos.x += get_vx();
     next_pos.y += get_vy();
 
-    if (o->get_position().x == 64 && o->get_position().y == 614) {
-        cout<<"comparing with rect: "<<o->get_position()<<endl;
-    }
-
     if (!next_pos.intersects(o->get_position()))
         return Collision(false, false, false, false);
 
@@ -30,22 +26,12 @@ Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     return Collision(get_vy() > 0, get_vy() > 0, get_vx() > 0, get_vx() > 0);
 }
 
-#include <iostream>
-using namespace std;
 void MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obstacles) {
-    for (int i = 0; i < obstacles.size(); i++) {
-//        cout<<"comparing with: "<<obstacles[i]->get_position()<<endl;
-//        if (compare_floats(obstacles[i]->get_position().x, 64) && compare_floats(obstacles[i]->get_position().y, 416) && get_vy() != 0) {
-//            cout<<"comparing with 64"<<endl;
-//            cout<<get_position()<<" "<<obstacles[i]->get_position()<<endl;
-//        }
 
+    for (int i = 0; i < obstacles.size(); i++) {
         Collision collision = check_collision_on_next_frame(obstacles[i]);
         if (collision == Collision::NO_COLLISION)
             continue;
-
-//        cout<<"collision detected with "<<obstacles[i]->get_position()<<" ";
-//        cout<<collision.from_top<<collision.from_bottom<<collision.from_left<<collision.from_right<<endl;
 
         ExactRectangle new_pos = get_position();
         double new_vx = get_vx(), new_vy = get_vy();
@@ -70,7 +56,6 @@ void MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obs
         set_vx(new_vx);
         set_vy(new_vy);
     }
-//    cout<<"at the end of collision snap: "<<get_position()<<", "<<get_vx()<<" "<<get_vy()<<endl;
 
     move_one_frame();
 }
@@ -100,10 +85,12 @@ bool Collision::operator==(const Collision &c) {
 }
 
 void Object::draw(rsdl::Window &win, int camera_x) {
-    cout << "draw: " << camera_x << endl;
     win.draw_img(get_image_addr(), convert_to_rectangle(get_position().relative_to_x(camera_x)));
 }
 
 bool Object::collides(Object *object) const {
     return get_position().intersects(object->get_position());
 }
+
+Object::Object(ExactRectangle _position, Game *_game) :
+    position(_position), game(_game) {}

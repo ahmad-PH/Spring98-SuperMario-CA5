@@ -5,19 +5,20 @@
 #include "Geometry.h"
 #include "rsdl.hpp"
 
-class Mario;
-class Enemy;
-class Brick;
+class Game;
 
 class Object {
 public:
+    Object(ExactRectangle _position, Game* _game);
     virtual ExactRectangle get_position() const { return position; }
     virtual void set_position(ExactRectangle position) { this->position = position; }
     virtual void draw(rsdl::Window& win, int camera_x);
+    virtual void update() = 0;
     virtual std::string get_image_addr() const = 0;
     bool collides(Object* object) const;
 protected:
     ExactRectangle position;
+    Game* game;
 };
 
 
@@ -32,6 +33,7 @@ struct Collision {
 
 class MovingObject : public Object {
 public:
+    using Object::Object;
     virtual double get_vx() { return vx; }
     virtual double get_vy() { return vy; }
     virtual void set_vx(double vx) { this->vx = vx; }

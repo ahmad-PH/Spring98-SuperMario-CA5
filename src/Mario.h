@@ -5,25 +5,27 @@
 #include "Object.h"
 #include "Geometry.h"
 #include "AnimationIndexHandler.h"
+#include "Game.h"
 #include <string>
 
 class Mario : public MovingObject {
 public:
-    Mario(ExactRectangle position);
+    Mario(ExactRectangle position, Game* game);
     std::string get_image_addr() const override;
     void handle_key_press(char key);
     void handle_key_release(char key);
     void set_vx(double vx) override;
     void set_vy(double vy) override;
-    void update(const std::vector<Object *> &obstacles);
+    virtual void update();
 
 private:
     virtual void move_one_frame();
-    void update_state(const std::vector<Object*>& obstacles);
+    void update_state();
     void update_direction();
-    bool is_touching_ground(const std::vector<Object*>& obstacles);
+    bool is_touching_ground();
     void apply_friction();
     void handle_jump_continuation();
+    void avoid_exiting_left_edge_of_screen();
 
     enum State {STANDING, WALKING, JUMPING, SLIDING} state;
     enum Direction {LEFT, RIGHT} direction;

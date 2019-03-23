@@ -5,20 +5,18 @@
 
 using namespace std;
 
-
 const double Mario::max_vx = 20;
 const double Mario::max_vy = 30;
 const double Mario::friction_constant = 0.12, Mario::stop_threshold = 5;
 const int Mario::max_jump_time = 5;
 
-Mario::Mario(ExactRectangle _position) :
-    walk_index_handler(2,3) {
+Mario::Mario(ExactRectangle position, Game* game) :
+    MovingObject(position, game), walk_index_handler(2,3) {
 
     state = STANDING;
     direction = RIGHT;
     strength = NORMAL;
 
-    position = _position;
     vx = vy = ax = 0;
     ay = GRAVITATIONAL_ACCELERATION;
 }
@@ -74,16 +72,17 @@ void Mario::move_one_frame() {
 }
 
 
-void Mario::update(const std::vector<Object *> &obstacles) {
-    move_one_frame_with_obstacles(obstacles);
+void Mario::update() {
+    move_one_frame_with_obstacles(game->get_obstacles());
     apply_friction();
-    update_state(obstacles);
+    update_state();
     update_direction();
     handle_jump_continuation();
+    avoid_exiting_left_edge_of_screen();
 }
 
-void Mario::update_state(const std::vector<Object *> &obstacles) {
-    if (!is_touching_ground(obstacles)) {
+void Mario::update_state() {
+    if (!is_touching_ground()) {
         state = JUMPING;
     } else if (vx != 0) {
         if (ax * vx < 0) {
@@ -99,10 +98,10 @@ void Mario::update_state(const std::vector<Object *> &obstacles) {
     }
 }
 
-bool Mario::is_touching_ground(const vector<Object *>& obstacles) {
+bool Mario::is_touching_ground() {
     bool result = false;
-    for (int i = 0; i < obstacles.size(); i++) {
-        if (compare_floats(obstacles[i]->get_position().y, position.y + position.h)) {
+    for (int i = 0; i < game->get_obstacles().size(); i++) {
+        if (compare_floats(game->get_obstacles()[i]->get_position().y, position.y + position.h)) {
             result = true;
         }
     }
@@ -171,4 +170,11 @@ string Mario::get_image_addr() const {
     }
     address += ".png";
     return address;
+}
+
+void Mario::avoid_exiting_left_edge_of_screen() {
+    if (get_position().x < game->get_camera_x()) {
+        position.x = game->get_camera_x();
+        vx = 0;
+    }
 }

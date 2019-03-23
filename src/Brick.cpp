@@ -6,8 +6,8 @@ using namespace std;
 
 const double Brick::bump_speed = 2.5;
 
-Brick::Brick(ExactRectangle position) {
-    this->position = position;
+Brick::Brick(ExactRectangle position, Game* game) :
+    Object(position, game) {
     vy = 0;
     original_y = position.y;
 }
@@ -37,8 +37,8 @@ string RegularBrick::get_image_addr() const {
 
 
 //===============================QuestionBrick===============================
-QuestionBrick::QuestionBrick(ExactRectangle position) :
-    Brick(position), animation_index_handler(2, 3) {
+QuestionBrick::QuestionBrick(ExactRectangle position, Game* game) :
+    Brick(position, game), animation_index_handler(2, 3) {
     is_empty = false;
 }
 
