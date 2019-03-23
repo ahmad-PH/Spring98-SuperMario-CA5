@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "rsdl.hpp"
-#include "Geometry.h"
+#include "ExactRectangle.h"
 
 double closest_in_interval(double val, double interval_begin,
                            double interval_end);

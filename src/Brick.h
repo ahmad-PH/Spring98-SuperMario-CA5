@@ -1,9 +1,10 @@
 #ifndef SRC_BRICK_H
 #define SRC_BRICK_H
 
-#include "Geometry.h"
+#include "ExactRectangle.h"
 #include "Object.h"
 #include "AnimationIndexHandler.h"
+
 
 class Brick : public Object {
 public:
@@ -24,16 +25,20 @@ private:
 
 };
 
+enum BrickContent{MUSHROOM, COIN};
+
 class QuestionBrick : public Brick {
 public:
-    QuestionBrick(ExactRectangle position, Game* game);
+    QuestionBrick(ExactRectangle position, Game* game, BrickContent content);
     virtual std::string get_image_addr() const;
     virtual void update();
     virtual void on_collision_with_mario(Collision collision);
 private:
     AnimationIndexHandler animation_index_handler;
     bool is_empty;
+    BrickContent content;
 };
+
 
 
 #endif //SRC_BRICK_H

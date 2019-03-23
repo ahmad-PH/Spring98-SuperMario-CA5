@@ -6,6 +6,7 @@ using namespace std;
 
 Game::Game() : win(800, 480) {
     camera_x = 0;
+    n_coins = 0;
 }
 
 void Game::run_level(std::string level_addr) {
@@ -80,7 +81,9 @@ void Game::load_map_cell(int x, int y, char cell) {
         case 'b':
             add_brick(new RegularBrick(position, this)); break;
         case '?':
-            add_brick(new QuestionBrick(position, this)); break;
+            add_brick(new QuestionBrick(position, this, COIN)); break;
+        case 'm':
+            add_brick(new QuestionBrick(position, this, MUSHROOM)); break;
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -95,9 +98,7 @@ void Game::draw() {
 }
 
 Game::~Game() {
-    delete mario;
-    delete_vector(blocks);
-    delete_vector(bricks);
+    delete_vector(objects);
 }
 
 void Game::handle_events() {
@@ -141,7 +142,7 @@ void Game::add_brick(Brick* brick) {
 void Game::remove_brick(Brick *brick) {
     bricks.erase(bricks.begin() + find_in_vector(bricks, brick));
     obstacles.erase(obstacles.begin() + find_in_vector(obstacles, (Object*)brick));
-    objects.erase(objects.begin() + find_in_vector(objects, (Object*)brick));
+    remove_object(brick);
 }
 
 void Game::set_mario(Mario *mario) {
@@ -160,5 +161,18 @@ void Game::handle_object_interactions() {
         Collision collision = mario->check_collision_on_next_frame(bricks[i]);
         bricks[i]->on_collision_with_mario(collision);
     }
+}
+
+void Game::remove_object(Object* object) {
+    objects.erase(objects.begin() + find_in_vector(objects, object));
+    delete object;
+}
+
+void Game::add_object(Object *object) {
+    objects.push_back(object);
+}
+
+void Game::increment_coin() {
+    n_coins++;
 }
 

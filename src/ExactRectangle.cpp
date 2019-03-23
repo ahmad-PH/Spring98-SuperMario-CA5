@@ -1,4 +1,4 @@
-#include "Geometry.h"
+#include "ExactRectangle.h"
 #include "utility.h"
 
 
@@ -6,12 +6,6 @@
 using namespace std;
 
 bool ExactRectangle::intersects(ExactRectangle r) {
-
-//    if (compare_floats(r.x,64) && compare_floats(r.y,416)) {
-//        cout << "found rect: " << r << endl;
-//        cout<< "me: "<<*this<<endl;
-//        cout<<"decision: "<<res<<endl;
-//    }
     return (x < r.x + w &&
             x + w > r.x &&
             y < r.y + r.h &&

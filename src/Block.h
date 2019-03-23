@@ -4,7 +4,7 @@
 #include <string>
 #include "rsdl.hpp"
 #include "Object.h"
-#include "Geometry.h"
+#include "ExactRectangle.h"
 
 class Block : public Object {
 public:

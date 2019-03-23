@@ -2,7 +2,7 @@
 #define SRC_OBJECT_H
 
 #include <vector>
-#include "Geometry.h"
+#include "ExactRectangle.h"
 #include "rsdl.hpp"
 
 #define GRAVITATIONAL_ACCELERATION 6.0

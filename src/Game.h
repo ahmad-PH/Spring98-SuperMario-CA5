@@ -21,6 +21,9 @@ public:
 
     std::vector<Object*> get_obstacles() const { return obstacles; }
     int get_camera_x() const { return camera_x; }
+    void remove_object(Object* object);
+    void add_object(Object* object);
+    void increment_coin();
 
 private:
     void load_level(std::string level_addr);
@@ -36,13 +39,12 @@ private:
     void remove_brick(Brick* brick);
     void handle_object_interactions();
 
-
     rsdl::Window win;
     int camera_x;
-
     bool game_running;
-
     Mario* mario;
+    int n_coins;
+
     std::vector<Block*> blocks;
     std::vector<Brick*> bricks;
     std::vector<Object*> obstacles;

@@ -21,8 +21,6 @@ Mario::Mario(ExactRectangle position, Game* game) :
 }
 
 void Mario::handle_key_press(char key) {
-    cout<<"key pressed: "<<key<<endl;
-
     if (key == 'd') {
         if (state == SLIDING)
             ax = 2;
@@ -44,7 +42,6 @@ void Mario::handle_key_press(char key) {
 }
 
 void Mario::handle_key_release(char key) {
-    cout<<"key released"<<key<<endl;
     if (key == 'd' && ax >= 0) {
         ax = 0;
     } else if (key == 'a' && ax < 0) {

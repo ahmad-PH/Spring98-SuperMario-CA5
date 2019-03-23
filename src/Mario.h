@@ -3,7 +3,7 @@
 
 #include "rsdl.hpp"
 #include "Object.h"
-#include "Geometry.h"
+#include "ExactRectangle.h"
 #include "AnimationIndexHandler.h"
 #include "Game.h"
 #include <string>
