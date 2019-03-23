@@ -24,6 +24,7 @@ private:
     void draw();
     void handle_events();
     void update();
+    void update_mario();
     void update_camera();
     void set_mario(Mario* mario);
     void add_block(Block* block);

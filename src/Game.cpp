@@ -119,7 +119,7 @@ void Game::handle_events() {
 }
 
 void Game::update() {
-    mario->update(obstacles);
+    update_mario();
     update_camera();
     for (int i = 0; i < bricks.size(); i++) {
         bricks[i]->update();
@@ -152,6 +152,16 @@ void Game::set_mario(Mario *mario) {
 void Game::update_camera() {
     if (mario->get_position().x >  camera_x + (win.get_width() / 2)) {
         camera_x = mario->get_position().x - (win.get_width() / 2);
+    }
+}
+
+void Game::update_mario() {
+    mario->update(obstacles);
+    if (mario->get_position().x < camera_x) {
+        ExactRectangle corrected_pos = mario->get_position();
+        corrected_pos.x = camera_x;
+        mario->set_position(corrected_pos);
+        mario->set_vx(0);
     }
 }
 

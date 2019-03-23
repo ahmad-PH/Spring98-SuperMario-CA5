@@ -23,7 +23,7 @@ ExactRectangle::ExactRectangle(double _x, double _y, int _w, int _h) :
 
 ExactRectangle ExactRectangle::relative_to_x(int x) {
     ExactRectangle result = *this;
-    result.x - x;
+    result.x -= x;
     return result;
 }
 

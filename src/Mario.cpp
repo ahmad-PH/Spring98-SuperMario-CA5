@@ -8,7 +8,7 @@ using namespace std;
 
 const double Mario::max_vx = 20;
 const double Mario::max_vy = 30;
-const double Mario::friction_constant = 0.11, Mario::stop_threshold = 5;
+const double Mario::friction_constant = 0.12, Mario::stop_threshold = 5;
 const int Mario::max_jump_time = 5;
 
 Mario::Mario(ExactRectangle _position) :
