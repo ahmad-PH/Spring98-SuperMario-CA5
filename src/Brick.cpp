@@ -4,31 +4,22 @@
 
 using namespace std;
 
+const double Brick::bump_speed = 2.5;
+
 Brick::Brick(ExactRectangle position) {
     this->position = position;
-}
-
-//===============================RegularBrick===============================
-const double RegularBrick::bump_speed = 2.5;
-
-RegularBrick::RegularBrick(ExactRectangle position) : Brick(position) {
     vy = 0;
     original_y = position.y;
 }
 
-string RegularBrick::get_image_addr() const {
-    return REGULAR_BRICK_ADDR;
-}
-
-void RegularBrick::on_collision_with_mario(Collision collision) {
+void Brick::on_collision_with_mario(Collision collision) {
     if (!collision.from_bottom)
         return;
-
     vy = -bump_speed;
     original_y = position.y;
 }
 
-void RegularBrick::update() {
+void Brick::update() {
     position.y += vy;
     if (original_y - position.y >= 5) {
         vy = +bump_speed;
@@ -38,21 +29,38 @@ void RegularBrick::update() {
     }
 }
 
+//===============================RegularBrick===============================
+
+string RegularBrick::get_image_addr() const {
+    return REGULAR_BRICK_ADDR;
+}
+
+
 //===============================QuestionBrick===============================
 QuestionBrick::QuestionBrick(ExactRectangle position) :
-    Brick(position), animation_index_handler(2, 3) {}
+    Brick(position), animation_index_handler(2, 3) {
+    is_empty = false;
+}
 
 void QuestionBrick::update() {
+    Brick::update();
     animation_index_handler.next();
 }
 
 string QuestionBrick::get_image_addr() const {
-    return  string(QUESTION_BRICK_ADDR) + "question-" +
-            to_string(animation_index_handler.current() + 1) + ".png";
+    if (is_empty)
+        return QUESTION_BRICK_ADDR "question-empty.png";
+    else
+        return  string(QUESTION_BRICK_ADDR) + "question-" +
+                to_string(animation_index_handler.current() + 1) + ".png";
 }
 
 void QuestionBrick::on_collision_with_mario(Collision collision) {
+    Brick::on_collision_with_mario(collision);
 
+    if (!collision.from_bottom)
+        return;
+    is_empty = true;
 }
 
 
