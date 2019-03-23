@@ -23,37 +23,6 @@ Mario::Mario(ExactRectangle _position) :
     ay = GRAVITATIONAL_ACCELERATION;
 }
 
-void Mario::draw(rsdl::Window& win) {
-    string address = MARIO_ADDR;
-
-    if (strength == NORMAL)
-        address += "/normal";
-    else if (strength == BIG)
-        address += "/big";
-
-    if (state == STANDING)
-        address += "/standing";
-    else if (state == WALKING)
-        address += "/walking";
-    else if (state == JUMPING)
-        address += "/jumping";
-    else if (state == SLIDING)
-        address += "/sliding";
-
-    if (direction == RIGHT)
-        address += "-right";
-    else if (direction == LEFT)
-        address += "-left";
-
-    if (state == WALKING) {
-        address+= "-" + to_string(walk_index_handler.current() + 1);
-    }
-
-    address += ".png";
-
-    win.draw_img(address, convertToRectangle(position));
-}
-
 void Mario::handle_key_press(char key) {
     cout<<"key pressed: "<<key<<endl;
 
@@ -173,4 +142,33 @@ void Mario::handle_jump_continuation() {
         ay = GRAVITATIONAL_ACCELERATION;
         jump_timer = 0;
     }
+}
+
+string Mario::get_image_addr() const {
+    string address = MARIO_ADDR;
+
+    if (strength == NORMAL)
+        address += "/normal";
+    else if (strength == BIG)
+        address += "/big";
+
+    if (state == STANDING)
+        address += "/standing";
+    else if (state == WALKING)
+        address += "/walking";
+    else if (state == JUMPING)
+        address += "/jumping";
+    else if (state == SLIDING)
+        address += "/sliding";
+
+    if (direction == RIGHT)
+        address += "-right";
+    else if (direction == LEFT)
+        address += "-left";
+
+    if (state == WALKING) {
+        address+= "-" + to_string(walk_index_handler.current() + 1);
+    }
+    address += ".png";
+    return address;
 }

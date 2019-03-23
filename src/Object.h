@@ -9,7 +9,8 @@ class Object {
 public:
     virtual ExactRectangle get_position() const { return position; }
     virtual void set_position(ExactRectangle position) { this->position = position; }
-    virtual void draw(rsdl::Window& win) = 0;
+    virtual void draw(rsdl::Window& win, int camera_x);
+    virtual std::string get_image_addr() const = 0;
 protected:
     ExactRectangle position;
 };

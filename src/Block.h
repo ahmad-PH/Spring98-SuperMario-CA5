@@ -9,8 +9,7 @@
 class Block : public Object {
 public:
     Block(ExactRectangle position, std::string image_addr);
-    virtual void draw(rsdl::Window &win) ;
-
+    std::string get_image_addr() const override;
 private:
     std::string image_addr;
 };

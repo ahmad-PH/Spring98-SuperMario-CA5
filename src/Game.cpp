@@ -90,7 +90,7 @@ void Game::load_map_cell(int x, int y, char cell) {
 void Game::draw() {
     draw_background();
     for (int i = 0; i < objects.size(); i++)
-        objects[i]->draw(win);
+        objects[i]->draw(win, camera_x);
     win.update_screen();
 }
 
@@ -120,6 +120,7 @@ void Game::handle_events() {
 
 void Game::update() {
     mario->update(obstacles);
+    update_camera();
     for (int i = 0; i < bricks.size(); i++) {
         bricks[i]->update();
     }
@@ -146,5 +147,11 @@ void Game::remove_brick(Brick *brick) {
 void Game::set_mario(Mario *mario) {
     this->mario = mario;
     objects.push_back(mario);
+}
+
+void Game::update_camera() {
+    if (mario->get_position().x >  camera_x + (win.get_width() / 2)) {
+        camera_x = mario->get_position().x - (win.get_width() / 2);
+    }
 }
 

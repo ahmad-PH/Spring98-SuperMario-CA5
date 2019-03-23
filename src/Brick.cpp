@@ -10,20 +10,20 @@ Brick::Brick(ExactRectangle position) {
 
 //===============================RegularBrick===============================
 
-void RegularBrick::draw(rsdl::Window &win) {
-    win.draw_img(REGULAR_BRICK_ADDR, convertToRectangle(position));
+string RegularBrick::get_image_addr() const {
+    return REGULAR_BRICK_ADDR;
 }
 
 //===============================QuestionBrick===============================
-void QuestionBrick::draw(rsdl::Window &win) {
-    string address = string(QUESTION_BRICK_ADDR) + "question-" +
-                     to_string(animation_index_handler.current() + 1) + ".png";
-    win.draw_img(address, convertToRectangle(position));
-}
-
 QuestionBrick::QuestionBrick(ExactRectangle position) :
     Brick(position), animation_index_handler(2, 3) {}
 
 void QuestionBrick::update() {
     animation_index_handler.next();
 }
+
+string QuestionBrick::get_image_addr() const {
+    return  string(QUESTION_BRICK_ADDR) + "question-" +
+            to_string(animation_index_handler.current() + 1) + ".png";
+}
+

@@ -14,13 +14,13 @@ public:
 class RegularBrick : public Brick {
 public:
     using Brick::Brick;
-    void draw(rsdl::Window &win) override;
+    virtual std::string get_image_addr() const;
 };
 
 class QuestionBrick : public Brick {
 public:
     QuestionBrick(ExactRectangle position);
-    void draw(rsdl::Window &win) override;
+    virtual std::string get_image_addr() const;
     virtual void update();
 private:
     AnimationIndexHandler animation_index_handler;

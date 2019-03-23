@@ -6,7 +6,7 @@ Block::Block(ExactRectangle position, std::string image_addr) {
     this->image_addr = image_addr;
 }
 
-void Block::draw(rsdl::Window &win) {
-    win.draw_img(image_addr, convertToRectangle(position));
+std::string Block::get_image_addr() const {
+    return image_addr;
 }
 

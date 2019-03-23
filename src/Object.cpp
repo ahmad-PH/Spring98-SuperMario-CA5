@@ -100,3 +100,6 @@ bool Collision::operator==(const Collision &c) {
            from_left == c.from_left;
 }
 
+void Object::draw(rsdl::Window &win, int camera_x) {
+    win.draw_img(get_image_addr(), convert_to_rectangle(get_position().relative_to_x(camera_x)));
+}

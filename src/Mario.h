@@ -10,7 +10,7 @@
 class Mario : public MovingObject {
 public:
     Mario(ExactRectangle position);
-    virtual void draw(rsdl::Window& win);
+    std::string get_image_addr() const override;
     void handle_key_press(char key);
     void handle_key_release(char key);
     void set_vx(double vx) override;

@@ -15,19 +15,21 @@ class Game {
 public:
     Game();
     void run_level(std::string level_addr);
-    void draw_background();
-    void draw();
     ~Game();
 
 private:
     void load_level(std::string level_addr);
     void load_map_cell(int x, int y, char cell);
+    void draw_background();
+    void draw();
     void handle_events();
     void update();
+    void update_camera();
     void set_mario(Mario* mario);
     void add_block(Block* block);
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
+
 
     rsdl::Window win;
     int camera_x;
