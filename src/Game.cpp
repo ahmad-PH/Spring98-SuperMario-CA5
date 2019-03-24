@@ -85,6 +85,11 @@ void Game::load_map_cell(int x, int y, char cell) {
             add_brick(new QuestionBrick(position, this, COIN)); break;
         case 'm':
             add_brick(new QuestionBrick(position, this, MUSHROOM)); break;
+        case 'l':
+            add_enemy(new LittleGoomba(position, this)); break;
+//        case 'k':
+//            add_enemy(new KoopaTroopa(position, this)); break;
+
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -142,8 +147,8 @@ void Game::add_brick(Brick* brick) {
 }
 
 void Game::remove_brick(Brick *brick) {
-    bricks.erase(bricks.begin() + find_in_vector(bricks, brick));
-    obstacles.erase(obstacles.begin() + find_in_vector(obstacles, (Object*)brick));
+    erase(bricks, brick);
+    erase(obstacles, (Object*)brick);
     remove_object(brick);
 }
 
@@ -166,7 +171,7 @@ void Game::handle_object_interactions() {
 }
 
 void Game::remove_object(Object* object) {
-    objects.erase(objects.begin() + find_in_vector(objects, object));
+    erase(objects, object);
     delete object;
 }
 
@@ -183,5 +188,15 @@ void Game::draw_banner() {
     show_text(win, to_string(n_coins), rsdl::Point(win.get_width()/3 - 20, 40));
     show_text(win, "LIVES", rsdl::Point(win.get_width()*2/3 - 50, 10));
     show_text(win, to_string(n_lives), rsdl::Point(win.get_width()*2/3 - 25, 40));
+}
+
+void Game::add_enemy(Enemy *enemy) {
+    enemies.push_back(enemy);
+    objects.push_back((Object*)enemy);
+}
+
+void Game::remove_enemy(Enemy *enemy) {
+    erase(enemies, enemy);
+    erase(objects, (Object*)enemy);
 }
 

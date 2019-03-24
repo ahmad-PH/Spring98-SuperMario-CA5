@@ -9,5 +9,7 @@
 #define REGULAR_BRICK_ADDR ROOT_FOLDER "/sprites/objects/bricks_blocks/brick.png"
 #define QUESTION_BRICK_ADDR ROOT_FOLDER "/sprites/objects/bricks_blocks/"
 #define COIN_ADDR ROOT_FOLDER "/sprites/objects/coin.png"
+#define LITTLE_GOOMBA_ADDR ROOT_FOLDER "/sprites/enemies/little_goomba/"
+#define KOOPA_TROOPA_ADDR ROOT_FOLDER "/sprites/enemies/koopa_troopa/"
 
 #endif

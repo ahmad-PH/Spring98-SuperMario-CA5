@@ -3,7 +3,7 @@
 #include "Game.h"
 
 void Coin::update() {
-    position.y -= 8;
+    position.y -= 14;
     if (position.y < original_y - 3 * CELL_SIZE_PX)
         game->remove_object(this);
 }

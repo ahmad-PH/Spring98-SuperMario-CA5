@@ -4,6 +4,7 @@
 #include <vector>
 #include "ExactRectangle.h"
 #include "rsdl.hpp"
+#include "Collision.h"
 
 #define GRAVITATIONAL_ACCELERATION 6.0
 
@@ -24,14 +25,6 @@ protected:
 };
 
 
-struct Collision {
-    bool from_top, from_bottom, from_left, from_right;
-    Collision(bool from_top, bool from_bottom, bool from_left, bool from_right);
-    bool operator==(const Collision& c);
-
-    static Collision NO_COLLISION;
-};
-
 
 class MovingObject : public Object {
 public:
@@ -41,11 +34,14 @@ public:
     virtual void set_vx(double vx) { this->vx = vx; }
     virtual void set_vy(double vy) { this->vy = vy; }
     Collision check_collision_on_next_frame(const Object* o);
-    virtual void move_one_frame_with_obstacles(const std::vector<Object*>& obstacles);
+    virtual Collision move_one_frame_with_obstacles(const std::vector<Object*>& obstacles);
     virtual void move_one_frame();
 protected:
+    void update_direction();
+
     double vx, vy;
     double ax, ay;
+    enum Direction {LEFT, RIGHT} direction;
 };
 
 

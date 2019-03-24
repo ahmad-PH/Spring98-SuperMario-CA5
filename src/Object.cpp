@@ -4,6 +4,19 @@
 
 using namespace std;
 
+void Object::draw(rsdl::Window &win, int camera_x) {
+    win.draw_img(get_image_addr(), convert_to_rectangle(get_position().relative_to_x(camera_x)));
+}
+
+bool Object::collides(Object *object) const {
+    return get_position().intersects(object->get_position());
+}
+
+Object::Object(ExactRectangle _position, Game *_game) :
+        position(_position), game(_game) {}
+
+
+
 Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     ExactRectangle next_pos = get_position();
     next_pos.x += get_vx();
@@ -26,10 +39,12 @@ Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     return Collision(get_vy() > 0, get_vy() > 0, get_vx() > 0, get_vx() > 0);
 }
 
-void MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obstacles) {
+Collision MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obstacles) {
 
+    Collision result;
     for (int i = 0; i < obstacles.size(); i++) {
         Collision collision = check_collision_on_next_frame(obstacles[i]);
+        result = result.aggregate(collision);
         if (collision == Collision::NO_COLLISION)
             continue;
 
@@ -58,6 +73,7 @@ void MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obs
     }
 
     move_one_frame();
+    return result;
 }
 
 void MovingObject::move_one_frame() {
@@ -68,29 +84,10 @@ void MovingObject::move_one_frame() {
 }
 
 
-Collision::Collision(bool from_top, bool from_bottom, bool from_left, bool from_right) {
-    this->from_top = from_top;
-    this->from_bottom = from_bottom;
-    this->from_left = from_left;
-    this->from_right = from_right;
+void MovingObject::update_direction() {
+    if (vx > 0)
+        direction = RIGHT;
+    if (vx < 0)
+        direction = LEFT;
 }
 
-Collision Collision::NO_COLLISION(false, false, false, false);
-
-bool Collision::operator==(const Collision &c) {
-    return from_top == c.from_top &&
-           from_bottom == c.from_bottom &&
-           from_right == c.from_right &&
-           from_left == c.from_left;
-}
-
-void Object::draw(rsdl::Window &win, int camera_x) {
-    win.draw_img(get_image_addr(), convert_to_rectangle(get_position().relative_to_x(camera_x)));
-}
-
-bool Object::collides(Object *object) const {
-    return get_position().intersects(object->get_position());
-}
-
-Object::Object(ExactRectangle _position, Game *_game) :
-    position(_position), game(_game) {}

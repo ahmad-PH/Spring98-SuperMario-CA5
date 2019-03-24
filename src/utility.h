@@ -34,5 +34,9 @@ template <typename T> int find_in_vector(std::vector<T> vec, T value) {
 
 void show_text(rsdl::Window& win, std::string text, rsdl::Point position);
 
+template <typename T> void erase(std::vector<T>& vec, T value) {
+    vec.erase(vec.begin() + find_in_vector(vec, value));
+}
+
 
 #endif

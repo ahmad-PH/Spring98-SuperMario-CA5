@@ -104,14 +104,6 @@ bool Mario::is_touching_ground() {
     return result;
 }
 
-void Mario::update_direction() {
-    if (vx > 0) {
-        direction = RIGHT;
-    } else if (vx < 0) {
-        direction = LEFT;
-    }
-}
-
 void Mario::apply_friction() {
     if (ax != 0 || vx == 0)
         return;

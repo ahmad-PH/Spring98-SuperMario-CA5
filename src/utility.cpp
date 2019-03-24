@@ -18,5 +18,6 @@ bool compare_floats(double a, double b, double epsilon) {
 }
 
 void show_text(rsdl::Window& win, std::string text, rsdl::Point position) {
-    win.show_text(text, position, rsdl::WHITE, "../assets/fonts/FreeSans.ttf");
+//    win.show_text(text, position, rsdl::WHITE, "../assets/fonts/OpenSans.ttf");
+    win.show_text(text, position, rsdl::WHITE, "FreeSans.ttf");
 }

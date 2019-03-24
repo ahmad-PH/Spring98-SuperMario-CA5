@@ -6,6 +6,7 @@
 #include "Mario.h"
 #include "Block.h"
 #include "Brick.h"
+#include "Enemy.h"
 #include <string>
 #include <vector>
 
@@ -24,6 +25,7 @@ public:
     void remove_object(Object* object);
     void add_object(Object* object);
     void increment_coin();
+    rsdl::Window* get_window() { return &win; }
 
 private:
     void load_level(std::string level_addr);
@@ -37,6 +39,8 @@ private:
     void add_block(Block* block);
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
+    void add_enemy(Enemy* enemy);
+    void remove_enemy(Enemy* enemy);
     void handle_object_interactions();
     void draw_banner();
 
@@ -48,9 +52,9 @@ private:
 
     std::vector<Block*> blocks;
     std::vector<Brick*> bricks;
+    std::vector<Enemy*> enemies;
     std::vector<Object*> obstacles;
     std::vector<Object*> objects;
-
 };
 
 

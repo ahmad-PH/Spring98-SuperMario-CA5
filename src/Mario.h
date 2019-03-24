@@ -21,14 +21,12 @@ public:
 private:
     virtual void move_one_frame();
     void update_state();
-    void update_direction();
     bool is_touching_ground();
     void apply_friction();
     void handle_jump_continuation();
     void avoid_exiting_left_edge_of_screen();
 
     enum State {STANDING, WALKING, JUMPING, SLIDING} state;
-    enum Direction {LEFT, RIGHT} direction;
     enum Strength {NORMAL, BIG} strength;
 
     int jump_timer;
