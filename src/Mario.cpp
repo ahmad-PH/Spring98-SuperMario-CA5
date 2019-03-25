@@ -166,3 +166,15 @@ void Mario::avoid_exiting_left_edge_of_screen() {
         vx = 0;
     }
 }
+
+void Mario::on_collision_with_enemy(Collision collision) {
+    if (collision.from_right || collision.from_left || collision.from_bottom) {
+        game->on_marios_death();
+    }
+}
+
+void Mario::reset(ExactRectangle reset_pos) {
+    set_position(reset_pos);
+    vx = vy = 0;
+    ax = ay = 0;
+}

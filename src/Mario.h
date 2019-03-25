@@ -17,6 +17,8 @@ public:
     void set_vx(double vx) override;
     void set_vy(double vy) override;
     virtual void update();
+    void on_collision_with_enemy(Collision collision);
+    void reset(ExactRectangle reset_pos);
 
 private:
     virtual void move_one_frame();

@@ -18,20 +18,47 @@ Enemy::Enemy(ExactRectangle position, Game *game) :
     vx = vy = ax = 0;
     ay = GRAVITATIONAL_ACCELERATION;
     started_moving = false;
+    _is_dead = false;
 }
 
-std::string KoopaTroopa::get_image_addr() const {
-    return KOOPA_TROOPA_ADDR "walking-right-1.png";
-}
-
-std::string LittleGoomba::get_image_addr() const {
-    return string(LITTLE_GOOMBA_ADDR) + "walking-" + to_string(animation_index_handler.current() + 1) + ".png";
-}
+//=================================LittleGoomba================================
 
 LittleGoomba::LittleGoomba(ExactRectangle position, Game *game) :
-    Enemy(position, game), animation_index_handler(2, 2) {}
+        Enemy(position, game), animation_index_handler(2, 2) {}
+
+std::string LittleGoomba::get_image_addr() const {
+    string img_name;
+    if (_is_dead)
+        img_name = "dead";
+    else
+        img_name = string("walking-") + to_string(animation_index_handler.current() + 1);
+    return string(LITTLE_GOOMBA_ADDR) + img_name + ".png";
+}
 
 void LittleGoomba::update() {
     Enemy::update();
     animation_index_handler.next();
+    if (_is_dead) {
+        death_cleanup_counter--;
+        if (death_cleanup_counter <= 0)
+            game->remove_enemy(this);
+    }
+}
+
+void LittleGoomba::on_collision_with_mario(Collision col) {
+    if (col.from_top) {
+        _is_dead = true;
+        vx = vy = ax = ay = 0;
+        death_cleanup_counter = 10;
+    }
+}
+
+
+//=================================KoopaTroopa================================
+std::string KoopaTroopa::get_image_addr() const {
+    return KOOPA_TROOPA_ADDR "walking-right-1.png";
+}
+
+void KoopaTroopa::on_collision_with_mario(Collision col) {
+
 }

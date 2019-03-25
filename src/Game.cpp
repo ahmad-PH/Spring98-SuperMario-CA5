@@ -155,6 +155,7 @@ void Game::remove_brick(Brick *brick) {
 void Game::set_mario(Mario *mario) {
     this->mario = mario;
     objects.push_back(mario);
+    marios_initial_pos = mario->get_position();
 }
 
 void Game::update_camera() {
@@ -167,6 +168,14 @@ void Game::handle_object_interactions() {
     for (int i = 0; i < bricks.size(); i++) {
         Collision collision = mario->check_collision_on_next_frame(bricks[i]);
         bricks[i]->on_collision_with_mario(collision);
+    }
+    for (int i = 0; i < enemies.size(); i++) {
+        if (enemies[i]->is_dead())
+            continue;
+
+        Collision collision = mario->check_collision_on_next_frame(enemies[i]);
+        mario->on_collision_with_enemy(collision);
+        enemies[i]->on_collision_with_mario(collision);
     }
 }
 
@@ -198,5 +207,12 @@ void Game::add_enemy(Enemy *enemy) {
 void Game::remove_enemy(Enemy *enemy) {
     erase(enemies, enemy);
     erase(objects, (Object*)enemy);
+}
+
+void Game::on_marios_death() {
+    n_lives--;
+    rsdl::delay(1000);
+    camera_x = 0;
+    mario->reset(marios_initial_pos);
 }
 

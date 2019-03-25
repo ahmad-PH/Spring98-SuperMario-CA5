@@ -22,10 +22,16 @@ public:
 
     std::vector<Object*> get_obstacles() const { return obstacles; }
     int get_camera_x() const { return camera_x; }
-    void remove_object(Object* object);
     void add_object(Object* object);
+    void remove_object(Object* object);
+    void add_enemy(Enemy* enemy);
+    void remove_enemy(Enemy* enemy);
+    void add_brick(Brick* brick);
+    void remove_brick(Brick* brick);
+    void add_block(Block* block);
     void increment_coin();
     rsdl::Window* get_window() { return &win; }
+    void on_marios_death();
 
 private:
     void load_level(std::string level_addr);
@@ -36,11 +42,6 @@ private:
     void update();
     void update_camera();
     void set_mario(Mario* mario);
-    void add_block(Block* block);
-    void add_brick(Brick* brick);
-    void remove_brick(Brick* brick);
-    void add_enemy(Enemy* enemy);
-    void remove_enemy(Enemy* enemy);
     void handle_object_interactions();
     void draw_banner();
 
@@ -49,6 +50,7 @@ private:
     bool game_running;
     Mario* mario;
     int n_coins, n_lives;
+    ExactRectangle marios_initial_pos;
 
     std::vector<Block*> blocks;
     std::vector<Brick*> bricks;
