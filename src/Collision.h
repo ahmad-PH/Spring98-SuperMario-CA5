@@ -7,6 +7,7 @@ struct Collision {
     Collision();
     Collision aggregate(Collision col) const;
     bool operator==(const Collision& c);
+    bool operator!=(const Collision& c);
 
     static Collision NO_COLLISION;
 };

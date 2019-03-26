@@ -87,8 +87,8 @@ void Game::load_map_cell(int x, int y, char cell) {
             add_brick(new QuestionBrick(position, this, MUSHROOM)); break;
         case 'l':
             add_enemy(new LittleGoomba(position, this)); break;
-//        case 'k':
-//            add_enemy(new KoopaTroopa(position, this)); break;
+        case 'k':
+            add_enemy(new KoopaTroopa(position, this)); break;
 
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
@@ -166,16 +166,19 @@ void Game::update_camera() {
 
 void Game::handle_object_interactions() {
     for (int i = 0; i < bricks.size(); i++) {
-        Collision collision = mario->check_collision_on_next_frame(bricks[i]);
-        bricks[i]->on_collision_with_mario(collision);
+        bricks[i]->handle_interaction_with_mario(mario);
     }
     for (int i = 0; i < enemies.size(); i++) {
-        if (enemies[i]->is_dead())
-            continue;
-
-        Collision collision = mario->check_collision_on_next_frame(enemies[i]);
-        mario->on_collision_with_enemy(collision);
-        enemies[i]->on_collision_with_mario(collision);
+        Mario* unchanged_mario = new Mario(*mario);
+        mario->handle_interaction_with_enemy(enemies[i]);
+        enemies[i]->handle_interaction_with_mario(unchanged_mario);
+        delete unchanged_mario;
+    }
+    for (int i = 0; i < enemies.size(); i++) {
+        for (int j = 0; j < enemies.size(); j++) {
+            if (i == j) continue;
+            enemies[i]->handle_interaction_with_enemy(enemies[j]);
+        }
     }
 }
 

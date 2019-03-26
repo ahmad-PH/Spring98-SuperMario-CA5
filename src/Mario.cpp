@@ -167,9 +167,20 @@ void Mario::avoid_exiting_left_edge_of_screen() {
     }
 }
 
-void Mario::on_collision_with_enemy(Collision collision) {
-    if (collision.from_right || collision.from_left || collision.from_bottom) {
+void Mario::handle_interaction_with_enemy(Enemy* enemy) {
+    Collision collision = check_collision_on_next_frame(enemy);
+    if (enemy->is_dead() || collision == Collision::NO_COLLISION)
+        return;
+
+    KoopaTroopa* koopa_troopa = dynamic_cast<KoopaTroopa*>(enemy);
+    bool upside_down_koopa_troopa = (koopa_troopa != NULL && koopa_troopa->is_upside_down());
+    if (upside_down_koopa_troopa && koopa_troopa->get_vx() != 0) {
         game->on_marios_death();
+    } else if (collision.from_right || collision.from_left || collision.from_bottom) {
+        game->on_marios_death();
+    } else if (collision.from_top) {
+        if (!upside_down_koopa_troopa)
+            vy = -7;
     }
 }
 

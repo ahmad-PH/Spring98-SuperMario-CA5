@@ -8,6 +8,8 @@
 #include "Game.h"
 #include <string>
 
+class Enemy;
+
 class Mario : public MovingObject {
 public:
     Mario(ExactRectangle position, Game* game);
@@ -17,7 +19,7 @@ public:
     void set_vx(double vx) override;
     void set_vy(double vy) override;
     virtual void update();
-    void on_collision_with_enemy(Collision collision);
+    void handle_interaction_with_enemy(Enemy* enemy);
     void reset(ExactRectangle reset_pos);
 
 private:

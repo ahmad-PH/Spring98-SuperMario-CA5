@@ -14,8 +14,8 @@ Brick::Brick(ExactRectangle position, Game* game) :
     original_y = position.y;
 }
 
-void Brick::on_collision_with_mario(Collision collision) {
-    if (!collision.from_bottom)
+void Brick::handle_interaction_with_mario(Mario* mario) {
+    if (!mario->check_collision_on_next_frame(this).from_bottom)
         return;
     vy = -bump_speed;
 }
@@ -57,10 +57,10 @@ string QuestionBrick::get_image_addr() const {
                 to_string(animation_index_handler.current() + 1) + ".png";
 }
 
-void QuestionBrick::on_collision_with_mario(Collision collision) {
-    Brick::on_collision_with_mario(collision);
+void QuestionBrick::handle_interaction_with_mario(Mario* mario) {
+    Brick::handle_interaction_with_mario(mario);
 
-    if (!collision.from_bottom || is_empty)
+    if (!mario->check_collision_on_next_frame(this).from_bottom || is_empty)
         return;
 
     is_empty = true;

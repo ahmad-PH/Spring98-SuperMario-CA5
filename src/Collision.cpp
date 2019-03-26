@@ -20,6 +20,10 @@ bool Collision::operator==(const Collision &c) {
            from_left == c.from_left;
 }
 
+bool Collision::operator!=(const Collision &c) {
+    return !(*this == c);
+}
+
 Collision Collision::aggregate(Collision col) const {
     Collision result = *this;
     result.from_top = result.from_top || col.from_top;
