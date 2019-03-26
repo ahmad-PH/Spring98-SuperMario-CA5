@@ -22,6 +22,8 @@ class RegularBrick : public Brick {
 public:
     using Brick::Brick;
     virtual std::string get_image_addr() const;
+    void handle_interaction_with_mario(Mario *mario) override;
+
 private:
 
 };

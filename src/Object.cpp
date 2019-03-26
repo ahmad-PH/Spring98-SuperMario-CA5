@@ -24,6 +24,8 @@ MovingObject::MovingObject(ExactRectangle position, Game *game) :
     ay = GRAVITATIONAL_ACCELERATION;
 }
 
+#include "Mario.h"
+
 Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     ExactRectangle next_pos = get_position();
     const double relative_vx = get_vx() - o->get_vx();
@@ -34,8 +36,16 @@ Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     if (!next_pos.intersects(o->get_position()))
         return Collision::NO_COLLISION;
 
+    if (dynamic_cast<Mario*>(this) != NULL && dynamic_cast<const LittleGoomba*>(o) != NULL) {
+        cout<<"check mario with goomba:"<<endl;
+    }
+
     ExactRectangle only_move_along_x = next_pos;
     only_move_along_x.y -= relative_vy;
+    if (dynamic_cast<Mario*>(this) != NULL && dynamic_cast<const LittleGoomba*>(o) != NULL) {
+        cout<<"only_move_along_x"<<only_move_along_x<<" "<<o->get_position()<<endl;
+        cout<<"they intersect: "<<only_move_along_x.intersects(o->get_position())<<endl;
+    }
     if (!only_move_along_x.intersects(o->get_position())) {
         return Collision(relative_vy > 0, relative_vy < 0, false, false);
     }

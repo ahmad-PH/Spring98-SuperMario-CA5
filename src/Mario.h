@@ -23,6 +23,9 @@ public:
     void handle_interaction_with_object(Object* obj);
     void reset(ExactRectangle reset_pos);
     bool is_immune() const { return immunity_counter > 0; }
+    enum State {STANDING, WALKING, JUMPING, SLIDING};
+    enum Strength {NORMAL, BIG};
+    Strength get_strength() const { return strength; }
 
 private:
     virtual void move_one_frame();
@@ -36,8 +39,8 @@ private:
     void reduce_strength();
     void update_immunity_counter();
 
-    enum State {STANDING, WALKING, JUMPING, SLIDING} state;
-    enum Strength {NORMAL, BIG} strength;
+    State state;
+    Strength strength;
 
     void set_strength(Strength strength);
 

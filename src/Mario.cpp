@@ -196,12 +196,13 @@ void Mario::handle_interaction_with_enemy(Enemy* enemy) {
     bool upside_down_koopa_troopa = (koopa_troopa != NULL && koopa_troopa->is_upside_down());
     if (upside_down_koopa_troopa && koopa_troopa->get_vx() != 0) {
         reduce_strength();
-    } else if (collision.from_right || collision.from_left || collision.from_bottom) {
-        reduce_strength();
     } else if (collision.from_top) {
         if (!upside_down_koopa_troopa)
             vy = -7;
+    } else if (collision.from_right || collision.from_left || collision.from_bottom) {
+        reduce_strength();
     }
+
 }
 
 void Mario::set_strength(Mario::Strength new_strength) {

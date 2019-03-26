@@ -37,6 +37,14 @@ string RegularBrick::get_image_addr() const {
     return REGULAR_BRICK_ADDR;
 }
 
+void RegularBrick::handle_interaction_with_mario(Mario *mario) {
+    Brick::handle_interaction_with_mario(mario);
+
+    if (mario->check_collision_on_next_frame(this).from_bottom &&
+        mario->get_strength() == Mario::BIG)
+        game->remove_brick(this);
+}
+
 
 //===============================QuestionBrick===============================
 QuestionBrick::QuestionBrick(ExactRectangle position, Game* game, BrickContent content) :
