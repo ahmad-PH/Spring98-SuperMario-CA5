@@ -3,6 +3,7 @@
 #include "utility.h"
 #include "Game.h"
 #include "Coin.h"
+#include "Mushroom.h"
 
 using namespace std;
 
@@ -70,9 +71,8 @@ void QuestionBrick::handle_interaction_with_mario(Mario* mario) {
     if (content == COIN) {
         game->add_object(new Coin(content_spawn_position, game));
         game->increment_coin();
-    }
-//    else if (content == MUSHROOM)
-//        game->add_object(new Mushroom());
+    } else if (content == MUSHROOM)
+        game->add_object(new Mushroom(content_spawn_position, game));
 }
 
 

@@ -9,6 +9,7 @@
 #define GRAVITATIONAL_ACCELERATION 6.0
 
 class Game;
+class Mario;
 
 class Object {
 public:
@@ -19,6 +20,7 @@ public:
     virtual void update() = 0;
     virtual std::string get_image_addr() const = 0;
     bool collides(Object* object) const;
+    virtual void handle_interaction_with_mario(Mario* mario);
 protected:
     ExactRectangle position;
     Game* game;
@@ -28,7 +30,7 @@ protected:
 
 class MovingObject : public Object {
 public:
-    using Object::Object;
+    MovingObject(ExactRectangle position, Game* game);
     virtual double get_vx() { return vx; }
     virtual double get_vy() { return vy; }
     virtual void set_vx(double vx) { this->vx = vx; }

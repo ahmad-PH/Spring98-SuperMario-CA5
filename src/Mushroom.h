@@ -1,9 +1,17 @@
 #ifndef SRC_MUSHROOM_H
 #define SRC_MUSHROOM_H
 
-#include "Object.h"
+#include "AutomaticMovingObject.h"
 
-class Mushroom : public MovingObject {
+class Mushroom : public AutomaticMovingObject {
+public:
+    Mushroom(ExactRectangle position, Game* game);
+    std::string get_image_addr() const override;
+
+    void update() override;
+
+private:
+    int start_of_movement_delay;
 };
 
 #endif //SRC_MUSHROOM_H

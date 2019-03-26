@@ -165,21 +165,38 @@ void Game::update_camera() {
 }
 
 void Game::handle_object_interactions() {
-    for (int i = 0; i < bricks.size(); i++) {
-        bricks[i]->handle_interaction_with_mario(mario);
-    }
-    for (int i = 0; i < enemies.size(); i++) {
-        Mario* unchanged_mario = new Mario(*mario);
+    Mario* unchanged_mario = new Mario(*mario);
+
+    for (int i = 0; i < enemies.size(); i++)
         mario->handle_interaction_with_enemy(enemies[i]);
-        enemies[i]->handle_interaction_with_mario(unchanged_mario);
-        delete unchanged_mario;
-    }
+
+    for (int i = 0; i < objects.size(); i++)
+        objects[i]->handle_interaction_with_mario(unchanged_mario);
+
     for (int i = 0; i < enemies.size(); i++) {
         for (int j = 0; j < enemies.size(); j++) {
             if (i == j) continue;
             enemies[i]->handle_interaction_with_enemy(enemies[j]);
         }
     }
+
+    delete unchanged_mario;
+
+//    for (int i = 0; i < bricks.size(); i++) {
+//        bricks[i]->handle_interaction_with_mario(mario);
+//    }
+//    for (int i = 0; i < enemies.size(); i++) {
+//        Mario* unchanged_mario = new Mario(*mario);
+//        mario->handle_interaction_with_enemy(enemies[i]);
+//        enemies[i]->handle_interaction_with_mario(unchanged_mario);
+//        delete unchanged_mario;
+//    }
+//    for (int i = 0; i < enemies.size(); i++) {
+//        for (int j = 0; j < enemies.size(); j++) {
+//            if (i == j) continue;
+//            enemies[i]->handle_interaction_with_enemy(enemies[j]);
+//        }
+//    }
 }
 
 void Game::remove_object(Object* object) {

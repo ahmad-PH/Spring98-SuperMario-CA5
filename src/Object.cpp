@@ -15,6 +15,13 @@ bool Object::collides(Object *object) const {
 Object::Object(ExactRectangle _position, Game *_game) :
         position(_position), game(_game) {}
 
+void Object::handle_interaction_with_mario(Mario* mario) {}
+
+
+MovingObject::MovingObject(ExactRectangle position, Game *game) :
+    Object(position, game) {
+    ay = GRAVITATIONAL_ACCELERATION;
+}
 
 
 Collision MovingObject::check_collision_on_next_frame(const Object* o) {
