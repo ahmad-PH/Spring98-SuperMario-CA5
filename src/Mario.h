@@ -9,6 +9,7 @@
 #include <string>
 
 class Enemy;
+class Mushroom;
 
 class Mario : public MovingObject {
 public:
@@ -19,8 +20,9 @@ public:
     void set_vx(double vx) override;
     void set_vy(double vy) override;
     virtual void update();
-    void handle_interaction_with_enemy(Enemy* enemy);
+    void handle_interaction_with_object(Object* obj);
     void reset(ExactRectangle reset_pos);
+    bool is_immune() const { return immunity_counter > 0; }
 
 private:
     virtual void move_one_frame();
@@ -29,13 +31,20 @@ private:
     void apply_friction();
     void handle_jump_continuation();
     void avoid_exiting_left_edge_of_screen();
+    void handle_interaction_with_enemy(Enemy* enemy);
+    void handle_interaction_with_mushroom(Mushroom* mushroom);
+    void reduce_strength();
+    void update_immunity_counter();
 
     enum State {STANDING, WALKING, JUMPING, SLIDING} state;
     enum Strength {NORMAL, BIG} strength;
 
+    void set_strength(Strength strength);
+
     int jump_timer;
     bool jump_key_held;
     AnimationIndexHandler walk_index_handler;
+    int immunity_counter;
 
     static const double max_vx, max_vy;
     static const double friction_constant, stop_threshold;

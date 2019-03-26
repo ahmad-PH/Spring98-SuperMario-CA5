@@ -1,6 +1,7 @@
 #include "Object.h"
 #include "utility.h"
 #include "iostream"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -23,28 +24,32 @@ MovingObject::MovingObject(ExactRectangle position, Game *game) :
     ay = GRAVITATIONAL_ACCELERATION;
 }
 
-
 Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     ExactRectangle next_pos = get_position();
-    next_pos.x += get_vx();
-    next_pos.y += get_vy();
+    const double relative_vx = get_vx() - o->get_vx();
+    const double relative_vy = get_vy() - o->get_vy();
+    next_pos.x += relative_vx;
+    next_pos.y += relative_vy;
 
     if (!next_pos.intersects(o->get_position()))
-        return Collision(false, false, false, false);
+        return Collision::NO_COLLISION;
 
     ExactRectangle only_move_along_x = next_pos;
-    only_move_along_x.y -= get_vy();
-    if (!only_move_along_x.intersects(o->get_position()))
-        return Collision(get_vy() > 0, get_vy() < 0, false, false);
+    only_move_along_x.y -= relative_vy;
+    if (!only_move_along_x.intersects(o->get_position())) {
+        return Collision(relative_vy > 0, relative_vy < 0, false, false);
+    }
 
     ExactRectangle only_move_along_y = next_pos;
-    only_move_along_y.x -= get_vx();
-    if (!only_move_along_y.intersects(o->get_position()))
-        return Collision(false, false, get_vx() > 0, get_vx() < 0);
+    only_move_along_y.x -= relative_vx;
+    if (!only_move_along_y.intersects(o->get_position())) {
+        return Collision(false, false, relative_vx > 0, relative_vx < 0);
+    }
 
     //stops colliding only if you stop movement along both axes
-    return Collision(get_vy() > 0, get_vy() > 0, get_vx() > 0, get_vx() > 0);
+    return Collision(relative_vy > 0, relative_vy < 0, relative_vx > 0, relative_vx < 0);
 }
+
 
 Collision MovingObject::move_one_frame_with_obstacles(const std::vector<Object*>& obstacles) {
 

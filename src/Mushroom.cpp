@@ -4,6 +4,7 @@
 
 #include "Mushroom.h"
 #include "AssetsAddresses.h"
+#include "Game.h"
 
 std::string Mushroom::get_image_addr() const {
     return MUSHROOM_ADDR;
@@ -20,4 +21,9 @@ void Mushroom::update() {
     if (start_of_movement_delay > 0)
         return;
     AutomaticMovingObject::update();
+}
+
+void Mushroom::handle_interaction_with_mario(Mario *mario) {
+    if (mario->collides(this))
+        game->remove_object(this);
 }

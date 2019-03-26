@@ -56,8 +56,13 @@ void LittleGoomba::update() {
 }
 
 void LittleGoomba::handle_interaction_with_mario(Mario* mario) {
-    if (mario->check_collision_on_next_frame(this).from_top && !is_dead())
+    if (mario->is_immune())
+        return;
+
+    if (mario->check_collision_on_next_frame(this).from_top && !is_dead()) {
+        cout<<"calling die on an enemy"<<endl;
         die();
+    }
 }
 
 void LittleGoomba::die() {

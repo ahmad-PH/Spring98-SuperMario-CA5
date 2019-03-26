@@ -21,6 +21,8 @@ public:
     virtual std::string get_image_addr() const = 0;
     bool collides(Object* object) const;
     virtual void handle_interaction_with_mario(Mario* mario);
+    virtual double get_vx() const { return 0; }
+    virtual double get_vy() const { return 0; }
 protected:
     ExactRectangle position;
     Game* game;
@@ -31,8 +33,8 @@ protected:
 class MovingObject : public Object {
 public:
     MovingObject(ExactRectangle position, Game* game);
-    virtual double get_vx() { return vx; }
-    virtual double get_vy() { return vy; }
+    virtual double get_vx() const { return vx; }
+    virtual double get_vy() const { return vy; }
     virtual void set_vx(double vx) { this->vx = vx; }
     virtual void set_vy(double vy) { this->vy = vy; }
     Collision check_collision_on_next_frame(const Object* o);

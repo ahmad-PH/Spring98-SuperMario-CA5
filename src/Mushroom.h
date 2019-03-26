@@ -7,7 +7,7 @@ class Mushroom : public AutomaticMovingObject {
 public:
     Mushroom(ExactRectangle position, Game* game);
     std::string get_image_addr() const override;
-
+    void handle_interaction_with_mario(Mario *mario) override;
     void update() override;
 
 private:

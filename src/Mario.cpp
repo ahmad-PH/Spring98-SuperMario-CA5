@@ -1,6 +1,7 @@
 #include "Mario.h"
 #include "AssetsAddresses.h"
 #include "utility.h"
+#include "Mushroom.h"
 
 using namespace std;
 
@@ -75,6 +76,7 @@ void Mario::update() {
     update_direction();
     handle_jump_continuation();
     avoid_exiting_left_edge_of_screen();
+    update_immunity_counter();
 }
 
 void Mario::update_state() {
@@ -167,25 +169,62 @@ void Mario::avoid_exiting_left_edge_of_screen() {
     }
 }
 
+void Mario::reset(ExactRectangle reset_pos) {
+    set_position(reset_pos);
+    vx = vy = 0;
+    ax = ay = 0;
+}
+
+void Mario::handle_interaction_with_object(Object *obj) {
+    if (dynamic_cast<Enemy*>(obj) != NULL)
+        handle_interaction_with_enemy((Enemy*)obj);
+    else if (dynamic_cast<Mushroom*>(obj) != NULL)
+        handle_interaction_with_mushroom((Mushroom*)obj);
+}
+
+void Mario::handle_interaction_with_mushroom(Mushroom *mushroom) {
+    if (mushroom->collides(this))
+        set_strength(BIG);
+}
+
 void Mario::handle_interaction_with_enemy(Enemy* enemy) {
     Collision collision = check_collision_on_next_frame(enemy);
-    if (enemy->is_dead() || collision == Collision::NO_COLLISION)
+    if (enemy->is_dead() || collision == Collision::NO_COLLISION || immunity_counter > 0)
         return;
 
     KoopaTroopa* koopa_troopa = dynamic_cast<KoopaTroopa*>(enemy);
     bool upside_down_koopa_troopa = (koopa_troopa != NULL && koopa_troopa->is_upside_down());
     if (upside_down_koopa_troopa && koopa_troopa->get_vx() != 0) {
-        game->on_marios_death();
+        reduce_strength();
     } else if (collision.from_right || collision.from_left || collision.from_bottom) {
-        game->on_marios_death();
+        reduce_strength();
     } else if (collision.from_top) {
         if (!upside_down_koopa_troopa)
             vy = -7;
     }
 }
 
-void Mario::reset(ExactRectangle reset_pos) {
-    set_position(reset_pos);
-    vx = vy = 0;
-    ax = ay = 0;
+void Mario::set_strength(Mario::Strength new_strength) {
+    ExactRectangle new_position = position;
+    if (this->strength == NORMAL && new_strength == BIG) {
+        new_position.h = CELL_SIZE_PX * 2;
+        new_position.y = position.y - CELL_SIZE_PX;
+    } else if (this->strength == BIG && new_strength == NORMAL) {
+        new_position.h = CELL_SIZE_PX;
+        new_position.y = position.y + CELL_SIZE_PX;
+    }
+    set_position(new_position);
+    this->strength = new_strength;
+}
+
+void Mario::reduce_strength() {
+    if (strength == BIG) {
+        set_strength(NORMAL);
+        immunity_counter = 10;
+    } else
+        game->on_marios_death();
+}
+
+void Mario::update_immunity_counter() {
+    immunity_counter--;
 }
