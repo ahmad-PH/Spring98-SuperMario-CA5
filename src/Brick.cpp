@@ -18,7 +18,16 @@ Brick::Brick(ExactRectangle position, Game* game) :
 void Brick::handle_interaction_with_mario(Mario* mario) {
     if (!mario->check_collision_on_next_frame(this).from_bottom)
         return;
+
     vy = -bump_speed;
+
+    vector<Enemy*> enemies = game->get_enemies();
+    for (int i = 0; i < enemies.size(); i++) {
+        ExactRectangle above_brick = get_position();
+        above_brick.y -= CELL_SIZE_PX;
+        if (enemies[i]->get_position().intersects(above_brick))
+            enemies[i]->die();
+    }
 }
 
 void Brick::update() {

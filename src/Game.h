@@ -21,6 +21,7 @@ public:
     ~Game();
 
     std::vector<Object*> get_obstacles() const { return obstacles; }
+    std::vector<Enemy*> get_enemies() const { return enemies; }
     int get_camera_x() const { return camera_x; }
     void add_object(Object* object);
     void remove_object(Object* object);
