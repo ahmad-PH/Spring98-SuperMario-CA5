@@ -4,10 +4,11 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        cout<<"please provide a map name"<<endl;
-        exit(EXIT_FAILURE);
-    }
+    string map_name;
+    if (argc < 2)
+        map_name = "../assets/maps/1.txt";
+    else
+        map_name = argv[1];
     Game game;
-    game.run_level(argv[1]);
+    game.run_level(map_name);
 }
