@@ -1,7 +1,3 @@
-//
-// Created by ahmad on 3/25/19.
-//
-
 #include "AutomaticMovingObject.h"
 #include "Game.h"
 

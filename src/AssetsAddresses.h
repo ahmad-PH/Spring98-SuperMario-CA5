@@ -28,7 +28,4 @@
 #define RED_MUSHROOM_SOUND ROOT_FOLDER "/sounds/sound_effects/powerup.wav"
 #define RED_MUSHROOM_APPEARS_SOUND ROOT_FOLDER "/sounds/sound_effects/powerup-appears.wav"
 
-
-
-
 #endif
