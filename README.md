@@ -28,4 +28,4 @@ to play the game. The game currently has only one levels, and it will default to
 
 ## Acknowledgments
 
-* all the assets in this project were picked from the two websites: [mariouniverse](http://www.mariouniverse.com/) and [themushroomkingdom](https://themushroomkingdom.net/wav.shtml).
+* All the assets in this project were picked from the two websites: [mariouniverse](http://www.mariouniverse.com/) and [themushroomkingdom](https://themushroomkingdom.net/wav.shtml).
