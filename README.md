@@ -21,7 +21,10 @@ to play the game. The game currently has only one levels, and it will default to
 
 ## Authors
 
-* **Ahmad Pourihosseini** - [ahmad-PH](https://github.com/ahmad-PH)
+* **Ahmad Pourihosseini** - *wrote the source code* - [ahmad-PH](https://github.com/ahmad-PH)
+* **Farzad Habibi** - *helped with writing the assignment description* - [gsoosk](https://github.com/gsoosk)
+* **Amirhossein Habibvand** - *helped with writing the assignment description* - [amirhbv](https://github.com/amirhbv)
+* **Bardia Eghbali** - *helped with writing the assignment description* - [sadmanbrad](https://github.com/sadmanbrad)
 
 ## Acknowledgments
 
