@@ -8,7 +8,7 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 ## Getting Started
 
 To play this game, you need to do the typical steps for running any c-based project.
-First, clone the repository into a directory which we will call ‍‍‍`\<mario-dir\>` from now on. Then, change directory to `\<mario-dir\>/src`.
+First, clone the repository into a directory which we will call ‍‍‍`<mario-dir>` from now on. Then, change directory to `<mario-dir>/src`.
 Then run 
 ```
 make
