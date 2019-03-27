@@ -17,7 +17,7 @@ to create the executable. Then run
 ```
 ./mario.out <level-file-address>
 ```
-to play the game. The game currently has only one levels, and it will default to that one level if the executable is called without any arguments.
+to play the game. The game currently has only one level, and it will default to that one level if the executable is called without any arguments.
 
 ## Authors
 

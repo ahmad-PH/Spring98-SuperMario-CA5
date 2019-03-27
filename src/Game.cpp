@@ -145,7 +145,6 @@ Game::~Game() {
 void Game::handle_events() {
     while (win.has_pending_event()) {
         Event e = win.poll_for_event();
-
         switch (e.get_type()) {
             case Event::KEY_PRESS:
                 mario->handle_key_press(e.get_pressed_key());
