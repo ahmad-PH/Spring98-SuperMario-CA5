@@ -23,7 +23,6 @@ void Game::run_level(std::string level_addr) {
     }
 }
 
-
 void Game::draw_background() {
 
     const int bg_width = 2000, bg_height = 1000;
@@ -60,16 +59,24 @@ void Game::load_level(string level_addr) {
     ifstream level_file(level_addr.c_str());
 
     string line;
-    int y = 0;
+    charmap map;
     while(getline(level_file, line)) {
-        for (int x = 0; x < line.size(); x++) {
-            load_map_cell(x, y, line[x]);
+        vector<char> row;
+        for (int i = 0; i < line.size(); i++)
+            row.push_back(line[i]);
+        map.push_back(row);
+    }
+
+    charmap annotations = annotate_map(map);
+
+    for (int i = 0; i < map.size(); i++) {
+        for (int j = 0; j < map[i].size(); j++) {
+            load_map_cell(j, i, map[i][j], annotations[i][j]);
         }
-        y++;
     }
 }
 
-void Game::load_map_cell(int x, int y, char cell) {
+void Game::load_map_cell(int x, int y, char cell, char annotation) {
     ExactRectangle position(x * CELL_SIZE_PX, y * CELL_SIZE_PX, CELL_SIZE_PX, CELL_SIZE_PX);
 
     switch(cell) {
@@ -89,7 +96,30 @@ void Game::load_map_cell(int x, int y, char cell) {
             add_enemy(new LittleGoomba(position, this)); break;
         case 'k':
             add_enemy(new KoopaTroopa(position, this)); break;
-
+        case '|': {
+            string img_name;
+            switch (annotation) {
+                case 'L':
+                    img_name = "head-left";
+                    break;
+                case 'R':
+                    img_name = "head-right";
+                    break;
+                case 'l':
+                    img_name = "left";
+                    break;
+                case 'r':
+                    img_name = "right";
+                    break;
+            }
+            add_block(new Block(position, PIPE_ADDR + img_name + ".png", this));
+            break;
+        }
+        case 'f': {
+            string img_name = (annotation == 'h' ? "head" : "body");
+            add_object(new FlagBlock(position, this, FLAG_ADDR + img_name + ".png"));
+            break;
+        }
 //        default:
 //            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
 //            exit(EXIT_FAILURE);
@@ -212,9 +242,57 @@ void Game::remove_enemy(Enemy *enemy) {
 }
 
 void Game::on_marios_death() {
-    n_lives--;
-    rsdl::delay(1000);
-    camera_x = 0;
-    mario->reset(marios_initial_pos);
+    if (n_lives > 1) {
+        n_lives--;
+        rsdl::delay(1000);
+        camera_x = 0;
+        mario->reset(marios_initial_pos);
+    } else {
+        win.fill_rect(rsdl::Rectangle(0, 0, win.get_width(), win.get_height()), rsdl::BLACK);
+        show_text(win, "YOU LOSE!", rsdl::Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
+        win.update_screen();
+        game_running = false;
+        rsdl::delay(2000);
+    }
+
 }
 
+charmap Game::annotate_map(const charmap& map) {
+    charmap result;
+    for (int i = 0; i < map.size(); i++) {
+        vector<char> row;
+        for (int j = 0; j < map[i].size(); j++) {
+            row.push_back(annotate_cell(i, j, map));
+        }
+        result.push_back(row);
+    }
+    return result;
+}
+
+char Game::annotate_cell(int i, int j, const charmap &map) {
+    if (map[i][j] == '|') {
+        if (map[i - 1][j] != '|' && map[i][j - 1] != '|')
+            return 'L';
+        else if (map[i - 1][j] != '|' && map[i][j + 1] != '|')
+            return 'R';
+        else if (map[i][j - 1] != '|')
+            return 'l';
+        else if (map[i][j + 1] != '|')
+            return 'r';
+    } else if (map[i][j] == 'f') {
+        if (map[i-1][j] != 'f')
+            return 'h';
+        else
+            return 'b';
+    } else {
+        return ' ';
+    }
+}
+
+void Game::on_win() {
+    win.fill_rect(rsdl::Rectangle(0, 0, win.get_width(), win.get_height()), rsdl::BLACK);
+    show_text(win, "YOU WIN!", rsdl::Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
+    win.update_screen();
+    game_running = false;
+    rsdl::delay(2000);
+}

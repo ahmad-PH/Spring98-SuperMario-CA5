@@ -12,5 +12,7 @@
 #define LITTLE_GOOMBA_ADDR ROOT_FOLDER "/sprites/enemies/little_goomba/"
 #define KOOPA_TROOPA_ADDR ROOT_FOLDER "/sprites/enemies/koopa_troopa/"
 #define MUSHROOM_ADDR ROOT_FOLDER "/sprites/objects/mushroom.png"
+#define PIPE_ADDR ROOT_FOLDER "/sprites/objects/pipe/"
+#define FLAG_ADDR ROOT_FOLDER "/sprites/objects/flag/"
 
 #endif

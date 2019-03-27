@@ -11,4 +11,3 @@ std::string Block::get_image_addr() const {
 }
 
 void Block::update() {}
-

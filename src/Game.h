@@ -7,10 +7,12 @@
 #include "Block.h"
 #include "Brick.h"
 #include "Enemy.h"
+#include "FlagBlock.h"
 #include <string>
 #include <vector>
 
 #define CELL_SIZE_PX 32
+typedef std::vector<std::vector<char>> charmap;
 
 class Mario;
 
@@ -33,10 +35,11 @@ public:
     void increment_coin();
     rsdl::Window* get_window() { return &win; }
     void on_marios_death();
+    void on_win();
 
 private:
     void load_level(std::string level_addr);
-    void load_map_cell(int x, int y, char cell);
+    void load_map_cell(int x, int y, char cell, char annotation);
     void draw_background();
     void draw();
     void handle_events();
@@ -45,6 +48,8 @@ private:
     void set_mario(Mario* mario);
     void handle_object_interactions();
     void draw_banner();
+    charmap annotate_map(const charmap& map);
+    char annotate_cell(int i, int j, const charmap& map);
 
     rsdl::Window win;
     int camera_x;

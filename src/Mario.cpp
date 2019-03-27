@@ -19,6 +19,8 @@ Mario::Mario(ExactRectangle position, Game* game) :
 
     vx = vy = ax = 0;
     ay = GRAVITATIONAL_ACCELERATION;
+
+    immunity_counter = 0;
 }
 
 void Mario::handle_key_press(char key) {
@@ -222,10 +224,12 @@ void Mario::reduce_strength() {
     if (strength == BIG) {
         set_strength(NORMAL);
         immunity_counter = 10;
-    } else
+    } else if (strength == NORMAL) {
         game->on_marios_death();
+    }
 }
 
 void Mario::update_immunity_counter() {
-    immunity_counter--;
+    if (immunity_counter > 0)
+        immunity_counter--;
 }

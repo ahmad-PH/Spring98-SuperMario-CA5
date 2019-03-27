@@ -42,7 +42,7 @@ std::string LittleGoomba::get_image_addr() const {
         img_name = "dead";
     else
         img_name = string("walking-") + to_string(animation_index_handler.current() + 1);
-    return string(LITTLE_GOOMBA_ADDR) + img_name + ".png";
+    return LITTLE_GOOMBA_ADDR + img_name + ".png";
 }
 
 void LittleGoomba::update() {
@@ -60,7 +60,6 @@ void LittleGoomba::handle_interaction_with_mario(Mario* mario) {
         return;
 
     if (mario->check_collision_on_next_frame(this).from_top && !is_dead()) {
-        cout<<"calling die on an enemy"<<endl;
         die();
     }
 }
@@ -86,7 +85,7 @@ std::string KoopaTroopa::get_image_addr() const {
     else
         img_name = string("walking-") + (vx > 0 ? "right-" : "left-") +
                    to_string(animation_index_handler.current() + 1);
-    return string(KOOPA_TROOPA_ADDR) + img_name + ".png";
+    return KOOPA_TROOPA_ADDR + img_name + ".png";
 }
 
 void KoopaTroopa::handle_interaction_with_mario(Mario* mario) {
