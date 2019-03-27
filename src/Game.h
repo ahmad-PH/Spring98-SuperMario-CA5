@@ -34,7 +34,7 @@ public:
     void add_block(Block* block);
     void increment_coins();
     void increment_lives();
-    rsdl::Window* get_window() { return &win; }
+    Window* get_window() { return &win; }
     void on_marios_death();
     void on_win();
     void play_sound_effect(std::string filename);
@@ -53,7 +53,7 @@ private:
     charmap annotate_map(const charmap& map);
     char annotate_cell(int i, int j, const charmap& map);
 
-    rsdl::Window win;
+    Window win;
     int camera_x;
     bool game_running;
     Mario* mario;

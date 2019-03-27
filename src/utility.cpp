@@ -9,14 +9,14 @@ double closest_in_interval(double val, double interval_begin,
     return val;
 }
 
-rsdl::Rectangle convert_to_rectangle(ExactRectangle r) {
-    return rsdl::Rectangle((int)r.x, (int)r.y, r.w, r.h);
+Rectangle convert_to_rectangle(ExactRectangle r) {
+    return Rectangle((int)r.x, (int)r.y, r.w, r.h);
 }
 
 bool compare_floats(double a, double b, double epsilon) {
     return fabs(a - b) < epsilon;
 }
 
-void show_text(rsdl::Window& win, std::string text, rsdl::Point position, int size) {
-    win.show_text(text, position, rsdl::WHITE, "../assets/fonts/OpenSans.ttf", size);
+void show_text(Window& win, std::string text, Point position, int size) {
+    win.show_text(text, position, WHITE, "../assets/fonts/OpenSans.ttf", size);
 }

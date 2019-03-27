@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void Object::draw(rsdl::Window &win, int camera_x) {
+void Object::draw(Window &win, int camera_x) {
     win.draw_img(get_image_addr(), convert_to_rectangle(get_position().relative_to_x(camera_x)));
 }
 

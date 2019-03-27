@@ -20,7 +20,7 @@ void Game::run_level(std::string level_addr) {
         update();
         draw();
 
-        rsdl::delay(90);
+        delay(90);
     }
 }
 
@@ -35,22 +35,22 @@ void Game::draw_background() {
     if (!reached_end) {
         win.draw_img(
                 BG_IMG_ADDR,
-                rsdl::Rectangle(0, 0, win.get_width(), win.get_height()),
-                rsdl::Rectangle(bg_x, bg_y, win.get_width(), win.get_height())
+                Rectangle(0, 0, win.get_width(), win.get_height()),
+                Rectangle(bg_x, bg_y, win.get_width(), win.get_height())
         );
     } else {
         int first_part_width = bg_width - bg_x;
         int second_part_width = win.get_width() - first_part_width;
         win.draw_img(
                 BG_IMG_ADDR,
-                rsdl::Rectangle(0, 0, first_part_width, win.get_height()),
-                rsdl::Rectangle(bg_x, bg_y, first_part_width, win.get_height())
+                Rectangle(0, 0, first_part_width, win.get_height()),
+                Rectangle(bg_x, bg_y, first_part_width, win.get_height())
         );
 
         win.draw_img(
                 BG_IMG_ADDR,
-                rsdl::Rectangle(first_part_width, 0, second_part_width, win.get_height()),
-                rsdl::Rectangle(0, bg_y, second_part_width, win.get_height())
+                Rectangle(first_part_width, 0, second_part_width, win.get_height()),
+                Rectangle(0, bg_y, second_part_width, win.get_height())
         );
     }
 }
@@ -144,16 +144,16 @@ Game::~Game() {
 
 void Game::handle_events() {
     while (win.has_pending_event()) {
-        rsdl::Event e = win.poll_for_event();
+        Event e = win.poll_for_event();
 
         switch (e.get_type()) {
-            case rsdl::Event::KEY_PRESS:
+            case Event::KEY_PRESS:
                 mario->handle_key_press(e.get_pressed_key());
                 break;
-            case rsdl::Event::KEY_RELEASE:
+            case Event::KEY_RELEASE:
                 mario->handle_key_release(e.get_pressed_key());
                 break;
-            case rsdl::Event::QUIT:
+            case Event::QUIT:
                 game_running = false;
                 break;
         }
@@ -229,10 +229,10 @@ void Game::increment_coins() {
 }
 
 void Game::draw_banner() {
-    show_text(win, "COINS", rsdl::Point(win.get_width()/3 - 50, 10));
-    show_text(win, to_string(n_coins), rsdl::Point(win.get_width()/3 - 20, 40));
-    show_text(win, "LIVES", rsdl::Point(win.get_width()*2/3 - 50, 10));
-    show_text(win, to_string(n_lives), rsdl::Point(win.get_width()*2/3 - 25, 40));
+    show_text(win, "COINS", Point(win.get_width()/3 - 50, 10));
+    show_text(win, to_string(n_coins), Point(win.get_width()/3 - 20, 40));
+    show_text(win, "LIVES", Point(win.get_width()*2/3 - 50, 10));
+    show_text(win, to_string(n_lives), Point(win.get_width()*2/3 - 25, 40));
 }
 
 void Game::add_enemy(Enemy *enemy) {
@@ -250,18 +250,18 @@ void Game::on_marios_death() {
         n_lives--;
         win.stop_music();
         play_sound_effect(MARIOS_DEATH_SOUND);
-        rsdl::delay(3000);
+        delay(3000);
         win.play_music(BACKGROUND_MUSIC);
         camera_x = 0;
         mario->reset(marios_initial_pos);
     } else {
-        win.fill_rect(rsdl::Rectangle(0, 0, win.get_width(), win.get_height()), rsdl::BLACK);
-        show_text(win, "YOU LOSE!", rsdl::Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
+        win.fill_rect(Rectangle(0, 0, win.get_width(), win.get_height()), BLACK);
+        show_text(win, "YOU LOSE!", Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
         win.update_screen();
         game_running = false;
         win.stop_music();
         play_sound_effect(GAMEOVER_SOUND);
-        rsdl::delay(4500);
+        delay(4500);
     }
 
 }
@@ -302,13 +302,13 @@ void Game::on_win() {
     if (!game_running)
         return;;
 
-    win.fill_rect(rsdl::Rectangle(0, 0, win.get_width(), win.get_height()), rsdl::BLACK);
-    show_text(win, "YOU WIN!", rsdl::Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
+    win.fill_rect(Rectangle(0, 0, win.get_width(), win.get_height()), BLACK);
+    show_text(win, "YOU WIN!", Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
     win.update_screen();
     game_running = false;
     win.stop_music();
     play_sound_effect(LEVEL_CLEAR_SOUND);
-    rsdl::delay(6500);
+    delay(6500);
 }
 
 void Game::increment_lives() {

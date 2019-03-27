@@ -15,7 +15,7 @@ public:
     Object(ExactRectangle _position, Game* _game);
     virtual ExactRectangle get_position() const { return position; }
     virtual void set_position(ExactRectangle position) { this->position = position; }
-    virtual void draw(rsdl::Window& win, int camera_x);
+    virtual void draw(Window& win, int camera_x);
     virtual void update() = 0;
     virtual std::string get_image_addr() const = 0;
     bool collides(Object* object) const;

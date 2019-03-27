@@ -8,7 +8,7 @@
 double closest_in_interval(double val, double interval_begin,
                            double interval_end);
 
-rsdl::Rectangle convert_to_rectangle(ExactRectangle r);
+Rectangle convert_to_rectangle(ExactRectangle r);
 
 template <typename Base, typename Sub> std::vector<Base*> cast_vector_elements(std::vector<Sub*> vec) {
     std::vector<Base*> result;
@@ -31,7 +31,7 @@ template <typename T> int find_in_vector(std::vector<T> vec, T value) {
     return -1;
 }
 
-void show_text(rsdl::Window& win, std::string text, rsdl::Point position, int size = 24);
+void show_text(Window& win, std::string text, Point position, int size = 24);
 
 template <typename T> void erase(std::vector<T>& vec, T value) {
     vec.erase(vec.begin() + find_in_vector(vec, value));
