@@ -1,5 +1,4 @@
 #include "Coin.h"
-#include "AssetsAddresses.h"
 #include "Game.h"
 
 void Coin::update() {

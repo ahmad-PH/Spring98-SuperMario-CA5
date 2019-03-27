@@ -1,10 +1,9 @@
 #ifndef SRC_OBJECT_H
 #define SRC_OBJECT_H
 
-#include <vector>
 #include "ExactRectangle.h"
-#include "rsdl.hpp"
 #include "Collision.h"
+#include <vector>
 
 #define GRAVITATIONAL_ACCELERATION 6.0
 

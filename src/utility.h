@@ -8,7 +8,6 @@
 double closest_in_interval(double val, double interval_begin,
                            double interval_end);
 
-
 rsdl::Rectangle convert_to_rectangle(ExactRectangle r);
 
 template <typename Base, typename Sub> std::vector<Base*> cast_vector_elements(std::vector<Sub*> vec) {

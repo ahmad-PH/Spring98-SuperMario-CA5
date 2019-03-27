@@ -1,7 +1,6 @@
 #ifndef SRC_BRICK_H
 #define SRC_BRICK_H
 
-#include "ExactRectangle.h"
 #include "Object.h"
 #include "AnimationIndexHandler.h"
 

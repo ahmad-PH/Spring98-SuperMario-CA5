@@ -1,9 +1,6 @@
-//
-// Created by ahmad on 3/27/19.
-//
-
 #include "FlagBlock.h"
 #include "Mario.h"
+#include "Game.h"
 
 FlagBlock::FlagBlock(ExactRectangle position, Game *game, std::string image_addr) :
     Object(position, game) {

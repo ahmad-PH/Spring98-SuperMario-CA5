@@ -1,13 +1,11 @@
 #ifndef SRC_MARIO_H
 #define SRC_MARIO_H
 
-#include "rsdl.hpp"
 #include "Object.h"
-#include "ExactRectangle.h"
 #include "AnimationIndexHandler.h"
-#include "Game.h"
 #include <string>
 
+class Game;
 class Enemy;
 class Mushroom;
 

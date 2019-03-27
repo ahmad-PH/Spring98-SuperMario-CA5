@@ -3,7 +3,7 @@
 
 #include "Object.h"
 
-class FlagBlock : public Object{
+class FlagBlock : public Object {
 public:
     FlagBlock(ExactRectangle position, Game* game, std::string image_addr);
     void update() override;

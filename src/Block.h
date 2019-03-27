@@ -1,10 +1,8 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include <string>
-#include "rsdl.hpp"
 #include "Object.h"
-#include "ExactRectangle.h"
+#include <string>
 
 class Block : public Object {
 public:

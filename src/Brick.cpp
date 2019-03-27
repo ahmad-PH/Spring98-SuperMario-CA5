@@ -1,6 +1,5 @@
 #include "Brick.h"
 #include "AssetsAddresses.h"
-#include "utility.h"
 #include "Game.h"
 #include "Coin.h"
 #include "Mushroom.h"

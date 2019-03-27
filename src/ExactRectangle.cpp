@@ -1,8 +1,6 @@
 #include "ExactRectangle.h"
-#include "utility.h"
-
-
 #include <iostream>
+
 using namespace std;
 
 bool ExactRectangle::intersects(ExactRectangle r) {

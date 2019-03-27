@@ -2,6 +2,7 @@
 #include "AssetsAddresses.h"
 #include "utility.h"
 #include "Mushroom.h"
+#include "Game.h"
 
 using namespace std;
 

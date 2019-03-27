@@ -1,5 +1,4 @@
 #include "Block.h"
-#include "utility.h"
 
 Block::Block(ExactRectangle position, std::string image_addr, Game* game) :
     Object(position, game) {

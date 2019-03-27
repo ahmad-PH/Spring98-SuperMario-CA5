@@ -98,6 +98,8 @@ void Game::load_map_cell(int x, int y, char cell, char annotation) {
             add_enemy(new LittleGoomba(position, this)); break;
         case 'k':
             add_enemy(new KoopaTroopa(position, this)); break;
+        case '.':
+            break;
         case '|': {
             string img_name;
             switch (annotation) {
@@ -122,9 +124,9 @@ void Game::load_map_cell(int x, int y, char cell, char annotation) {
             add_object(new FlagBlock(position, this, FLAG_ADDR + img_name + ".png"));
             break;
         }
-//        default:
-//            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
-//            exit(EXIT_FAILURE);
+        default:
+            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
+            exit(EXIT_FAILURE);
     }
 }
 
