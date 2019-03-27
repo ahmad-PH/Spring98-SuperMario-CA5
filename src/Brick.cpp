@@ -50,8 +50,10 @@ void RegularBrick::handle_interaction_with_mario(Mario *mario) {
     Brick::handle_interaction_with_mario(mario);
 
     if (mario->check_collision_on_next_frame(this).from_bottom &&
-        mario->get_strength() == Mario::BIG)
+        mario->get_strength() == Mario::BIG) {
+        game->play_sound_effect(BRICK_SMASH_SOUND);
         game->remove_brick(this);
+    }
 }
 
 
@@ -87,9 +89,14 @@ void QuestionBrick::handle_interaction_with_mario(Mario* mario) {
 
     if (content == COIN) {
         game->add_object(new Coin(content_spawn_position, game));
-        game->increment_coin();
-    } else if (content == MUSHROOM)
-        game->add_object(new Mushroom(content_spawn_position, game));
+        game->increment_coins();
+        game->play_sound_effect(COIN_SOUND);
+    } else if (content == RED_MUSHROOM) {
+        game->add_object(new RedMushroom(content_spawn_position, game));
+        game->play_sound_effect(RED_MUSHROOM_APPEARS_SOUND);
+    } else if (content == HEALTH_MUSHROOM) {
+      game->add_object(new HealthMushroom(content_spawn_position, game));
+    }
 }
 
 

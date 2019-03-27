@@ -28,7 +28,7 @@ private:
 
 };
 
-enum BrickContent{MUSHROOM, COIN};
+enum BrickContent{HEALTH_MUSHROOM, RED_MUSHROOM, COIN};
 
 class QuestionBrick : public Brick {
 public:

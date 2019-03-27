@@ -12,6 +12,7 @@ Game::Game() : win(800, 480) {
 
 void Game::run_level(std::string level_addr) {
     load_level(level_addr);
+    win.play_music(BACKGROUND_MUSIC);
     game_running = true;
 
     while(game_running) {
@@ -51,7 +52,6 @@ void Game::draw_background() {
                 rsdl::Rectangle(first_part_width, 0, second_part_width, win.get_height()),
                 rsdl::Rectangle(0, bg_y, second_part_width, win.get_height())
         );
-
     }
 }
 
@@ -91,7 +91,9 @@ void Game::load_map_cell(int x, int y, char cell, char annotation) {
         case '?':
             add_brick(new QuestionBrick(position, this, COIN)); break;
         case 'm':
-            add_brick(new QuestionBrick(position, this, MUSHROOM)); break;
+            add_brick(new QuestionBrick(position, this, RED_MUSHROOM)); break;
+        case 'h':
+            add_brick(new QuestionBrick(position, this, HEALTH_MUSHROOM)); break;
         case 'l':
             add_enemy(new LittleGoomba(position, this)); break;
         case 'k':
@@ -220,7 +222,7 @@ void Game::add_object(Object *object) {
     objects.push_back(object);
 }
 
-void Game::increment_coin() {
+void Game::increment_coins() {
     n_coins++;
 }
 
@@ -244,7 +246,10 @@ void Game::remove_enemy(Enemy *enemy) {
 void Game::on_marios_death() {
     if (n_lives > 1) {
         n_lives--;
-        rsdl::delay(1000);
+        win.stop_music();
+        play_sound_effect(MARIOS_DEATH_SOUND);
+        rsdl::delay(3000);
+        win.play_music(BACKGROUND_MUSIC);
         camera_x = 0;
         mario->reset(marios_initial_pos);
     } else {
@@ -252,7 +257,9 @@ void Game::on_marios_death() {
         show_text(win, "YOU LOSE!", rsdl::Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
         win.update_screen();
         game_running = false;
-        rsdl::delay(2000);
+        win.stop_music();
+        play_sound_effect(GAMEOVER_SOUND);
+        rsdl::delay(4500);
     }
 
 }
@@ -290,9 +297,22 @@ char Game::annotate_cell(int i, int j, const charmap &map) {
 }
 
 void Game::on_win() {
+    if (!game_running)
+        return;;
+
     win.fill_rect(rsdl::Rectangle(0, 0, win.get_width(), win.get_height()), rsdl::BLACK);
     show_text(win, "YOU WIN!", rsdl::Point(win.get_width()/2 - 80, win.get_height()/2 - 30), 40);
     win.update_screen();
     game_running = false;
-    rsdl::delay(2000);
+    win.stop_music();
+    play_sound_effect(LEVEL_CLEAR_SOUND);
+    rsdl::delay(6500);
+}
+
+void Game::increment_lives() {
+    n_lives++;
+}
+
+void Game::play_sound_effect(std::string filename) {
+    win.play_sound_effect(filename);
 }

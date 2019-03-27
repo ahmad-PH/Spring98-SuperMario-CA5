@@ -39,6 +39,10 @@ void Mario::handle_key_press(char key) {
             vy = -22;
             ay = 0;
             jump_timer = max_jump_time;
+            if (strength == NORMAL)
+                game->play_sound_effect(JUMP_SMALL_SOUND);
+            else if (strength == BIG)
+                game->play_sound_effect(JUMP_SUPER_SOUND);
         }
         jump_key_held = true;
     }
@@ -180,7 +184,7 @@ void Mario::reset(ExactRectangle reset_pos) {
 void Mario::handle_interaction_with_object(Object *obj) {
     if (dynamic_cast<Enemy*>(obj) != NULL)
         handle_interaction_with_enemy((Enemy*)obj);
-    else if (dynamic_cast<Mushroom*>(obj) != NULL)
+    else if (dynamic_cast<RedMushroom*>(obj) != NULL)
         handle_interaction_with_mushroom((Mushroom*)obj);
 }
 

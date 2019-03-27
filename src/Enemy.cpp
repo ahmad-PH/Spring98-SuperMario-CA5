@@ -30,6 +30,10 @@ void Enemy::handle_interaction_with_enemy(Enemy *enemy) {
     }
 }
 
+void Enemy::die() {
+    game->play_sound_effect(ENEMY_STOMP_SOUND);
+}
+
 
 //=================================LittleGoomba================================
 
@@ -65,6 +69,7 @@ void LittleGoomba::handle_interaction_with_mario(Mario* mario) {
 }
 
 void LittleGoomba::die() {
+    Enemy::die();
     _is_dead = true;
     vx = vy = ax = ay = 0;
     death_cleanup_counter = 10;
@@ -109,5 +114,6 @@ void KoopaTroopa::update() {
 }
 
 void KoopaTroopa::die() {
+    Enemy::die();
     game->remove_enemy(this);
 }

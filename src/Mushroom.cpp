@@ -1,14 +1,6 @@
-//
-// Created by ahmad on 3/24/19.
-//
-
 #include "Mushroom.h"
 #include "AssetsAddresses.h"
 #include "Game.h"
-
-std::string Mushroom::get_image_addr() const {
-    return MUSHROOM_ADDR;
-}
 
 Mushroom::Mushroom(ExactRectangle position, Game *game) :
     AutomaticMovingObject(position, game) {
@@ -27,3 +19,29 @@ void Mushroom::handle_interaction_with_mario(Mario *mario) {
     if (mario->collides(this))
         game->remove_object(this);
 }
+
+std::string RedMushroom::get_image_addr() const {
+    return RED_MUSHROOM_ADDR;
+}
+
+void RedMushroom::handle_interaction_with_mario(Mario *mario) {
+    if (mario->collides(this))
+        game->play_sound_effect(RED_MUSHROOM_SOUND);
+
+    Mushroom::handle_interaction_with_mario(mario);
+}
+
+
+void HealthMushroom::handle_interaction_with_mario(Mario *mario) {
+    if (mario->collides(this)) {
+        game->increment_lives();
+        game->play_sound_effect(HEALTH_MUSHROOM_SOUND);
+    }
+
+    Mushroom::handle_interaction_with_mario(mario);
+}
+
+std::string HealthMushroom::get_image_addr() const {
+    return HEALTH_MUSHROOM_ADDR;
+}
+

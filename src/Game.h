@@ -32,10 +32,12 @@ public:
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
     void add_block(Block* block);
-    void increment_coin();
+    void increment_coins();
+    void increment_lives();
     rsdl::Window* get_window() { return &win; }
     void on_marios_death();
     void on_win();
+    void play_sound_effect(std::string filename);
 
 private:
     void load_level(std::string level_addr);

@@ -11,7 +11,7 @@ public:
     Enemy(ExactRectangle position, Game* game, double speed);
     void update() override;
     virtual void handle_interaction_with_mario(Mario* mario) = 0;
-    virtual void die() = 0;
+    virtual void die();
     virtual void handle_interaction_with_enemy(Enemy* enemy);
     bool is_dead() const { return _is_dead; }
 protected:
