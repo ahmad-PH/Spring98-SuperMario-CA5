@@ -14,7 +14,7 @@ const int Mario::max_jump_time = 5;
 Mario::Mario(ExactRectangle position, Game* game) :
     MovingObject(position, game), walk_index_handler(2,3) {
 
-    state = STANDING;
+    motion_state = STANDING;
     direction = RIGHT;
     strength = NORMAL;
 
@@ -26,17 +26,17 @@ Mario::Mario(ExactRectangle position, Game* game) :
 
 void Mario::handle_key_press(char key) {
     if (key == 'd') {
-        if (state == SLIDING)
+        if (motion_state == SLIDING)
             ax = 2;
         else
             ax = 2.5;
     } else if (key == 'a') {
-        if (state == SLIDING)
+        if (motion_state == SLIDING)
             ax = -2;
         else
             ax = -2.5;
     } else if (key == 'w') {
-        if (state != JUMPING && !jump_key_held) {
+        if (motion_state != JUMPING && !jump_key_held) {
             vy = -22;
             ay = 0;
             jump_timer = max_jump_time;
@@ -80,28 +80,33 @@ void Mario::update() {
     move_one_frame_with_obstacles(game->get_obstacles());
     apply_friction();
     update_state();
-    update_direction();
     handle_jump_continuation();
     avoid_exiting_left_edge_of_screen();
     update_immunity_counter();
 }
 
 void Mario::update_state() {
+    update_motion_state();
+    update_direction();
+}
+
+void Mario::update_motion_state() {
     if (!is_touching_ground()) {
-        state = JUMPING;
+        motion_state = JUMPING;
     } else if (vx != 0) {
         if (ax * vx < 0) {
-            state = SLIDING;
-        } else if (state != WALKING) {
-            state = WALKING;
+            motion_state = SLIDING;
+        } else if (motion_state != WALKING) {
+            motion_state = WALKING;
             walk_index_handler.reset();
         } else {
             walk_index_handler.next();
         }
     } else {
-        state = STANDING;
+        motion_state = STANDING;
     }
 }
+
 
 bool Mario::is_touching_ground() {
     bool result = false;
@@ -117,7 +122,7 @@ void Mario::apply_friction() {
     if (ax != 0 || vx == 0)
         return;
 
-    if (state == WALKING) {
+    if (motion_state == WALKING) {
         if (vx > 0) {
             vx = max(vx - (friction_constant * vx), 0.0);
             if (vx < stop_threshold)
@@ -148,13 +153,13 @@ string Mario::get_image_addr() const {
     else if (strength == BIG)
         address += "/big";
 
-    if (state == STANDING)
+    if (motion_state == STANDING)
         address += "/standing";
-    else if (state == WALKING)
+    else if (motion_state == WALKING)
         address += "/walking";
-    else if (state == JUMPING)
+    else if (motion_state == JUMPING)
         address += "/jumping";
-    else if (state == SLIDING)
+    else if (motion_state == SLIDING)
         address += "/sliding";
 
     if (direction == RIGHT)
@@ -162,7 +167,7 @@ string Mario::get_image_addr() const {
     else if (direction == LEFT)
         address += "-left";
 
-    if (state == WALKING) {
+    if (motion_state == WALKING) {
         address+= "-" + to_string(walk_index_handler.current() + 1);
     }
     address += ".png";
@@ -238,3 +243,4 @@ void Mario::update_immunity_counter() {
     if (immunity_counter > 0)
         immunity_counter--;
 }
+

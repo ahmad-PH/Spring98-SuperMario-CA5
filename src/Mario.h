@@ -21,7 +21,7 @@ public:
     void handle_interaction_with_object(Object* obj);
     void reset(ExactRectangle reset_pos);
     bool is_immune() const { return immunity_counter > 0; }
-    enum State {STANDING, WALKING, JUMPING, SLIDING};
+    enum MotionState {STANDING, WALKING, JUMPING, SLIDING};
     enum Strength {NORMAL, BIG};
     Strength get_strength() const { return strength; }
 
@@ -36,8 +36,9 @@ private:
     void handle_interaction_with_mushroom(Mushroom* mushroom);
     void reduce_strength();
     void update_immunity_counter();
+    void update_motion_state();
 
-    State state;
+    MotionState motion_state;
     Strength strength;
 
     void set_strength(Strength strength);
