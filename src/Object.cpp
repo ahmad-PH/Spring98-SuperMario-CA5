@@ -23,9 +23,9 @@ MovingObject::MovingObject(ExactRectangle position, Game *game) :
 }
 
 Collision MovingObject::check_collision_on_next_frame(const Object* o) {
-    ExactRectangle next_pos = get_position();
     const double relative_vx = get_vx() - o->get_vx();
     const double relative_vy = get_vy() - o->get_vy();
+    ExactRectangle next_pos = get_position();
     next_pos.x += relative_vx;
     next_pos.y += relative_vy;
 
@@ -35,12 +35,14 @@ Collision MovingObject::check_collision_on_next_frame(const Object* o) {
     ExactRectangle only_move_along_x = next_pos;
     only_move_along_x.y -= relative_vy;
     if (!only_move_along_x.intersects(o->get_position())) {
+        //the collision is vertical
         return Collision(relative_vy > 0, relative_vy < 0, false, false);
     }
 
     ExactRectangle only_move_along_y = next_pos;
     only_move_along_y.x -= relative_vx;
     if (!only_move_along_y.intersects(o->get_position())) {
+        //the collision is horizontal
         return Collision(false, false, relative_vx > 0, relative_vx < 0);
     }
 
