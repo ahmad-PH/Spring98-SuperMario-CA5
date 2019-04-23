@@ -81,7 +81,7 @@ void Mario::update() {
     apply_friction();
     update_state();
     handle_jump_continuation();
-    avoid_exiting_left_edge_of_screen();
+    apply_screen_exit_rules();
     update_immunity_counter();
 }
 
@@ -174,13 +174,6 @@ string Mario::get_image_addr() const {
     return address;
 }
 
-void Mario::avoid_exiting_left_edge_of_screen() {
-    if (get_position().x < game->get_camera_x()) {
-        position.x = game->get_camera_x();
-        vx = 0;
-    }
-}
-
 void Mario::reset(ExactRectangle reset_pos) {
     set_position(reset_pos);
     vx = vy = 0;
@@ -235,12 +228,26 @@ void Mario::reduce_strength() {
         set_strength(NORMAL);
         immunity_counter = 10;
     } else if (strength == NORMAL) {
-        game->on_marios_death();
+        die();
     }
+}
+
+void Mario::die() {
+    game->on_marios_death();
 }
 
 void Mario::update_immunity_counter() {
     if (immunity_counter > 0)
         immunity_counter--;
+}
+
+void Mario::apply_screen_exit_rules() {
+    if (position.x < game->get_camera_x()) {
+        position.x = game->get_camera_x();
+        vx = 0;
+    }
+
+    if (position.y > game->get_window()->get_height())
+        die();
 }
 

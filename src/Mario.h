@@ -31,12 +31,13 @@ private:
     bool is_touching_ground();
     void apply_friction();
     void handle_jump_continuation();
-    void avoid_exiting_left_edge_of_screen();
     void handle_interaction_with_enemy(Enemy* enemy);
     void handle_interaction_with_mushroom(Mushroom* mushroom);
     void reduce_strength();
     void update_immunity_counter();
     void update_motion_state();
+    void apply_screen_exit_rules();
+    void die();
 
     MotionState motion_state;
     Strength strength;
