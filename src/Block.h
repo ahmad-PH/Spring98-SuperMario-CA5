@@ -10,7 +10,7 @@ public:
     std::string get_image_addr() const override;
     void update() override;
 
-private:
+protected:
     std::string image_addr;
 };
 

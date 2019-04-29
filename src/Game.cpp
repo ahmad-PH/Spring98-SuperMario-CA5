@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "utility.h"
+#include "PipeBlock.h"
 #include <fstream>
 
 using namespace std;
@@ -78,7 +79,6 @@ void Game::load_level(string level_addr) {
 
 void Game::load_map_cell(int x, int y, char cell, char annotation) {
     ExactRectangle position(x * CELL_SIZE_PX, y * CELL_SIZE_PX, CELL_SIZE_PX, CELL_SIZE_PX);
-
     switch(cell) {
         case '#':
             add_block(new Block(position, GROUND_BLOCK_ADDR, this)); break;
@@ -98,34 +98,17 @@ void Game::load_map_cell(int x, int y, char cell, char annotation) {
             add_enemy(new LittleGoomba(position, this)); break;
         case 'k':
             add_enemy(new KoopaTroopa(position, this)); break;
-        case '.':
-            break;
-        case '|': {
-            string img_name;
-            switch (annotation) {
-                case 'L':
-                    img_name = "head-left";
-                    break;
-                case 'R':
-                    img_name = "head-right";
-                    break;
-                case 'l':
-                    img_name = "left";
-                    break;
-                case 'r':
-                    img_name = "right";
-                    break;
-            }
-            add_block(new Block(position, PIPE_ADDR + img_name + ".png", this));
-            break;
-        }
+        case '|':
+            add_block(new PipeBlock(position, annotation, this)); break;
         case 'f': {
             string img_name = (annotation == 'h' ? "head" : "body");
             add_object(new FlagBlock(position, this, FLAG_ADDR + img_name + ".png"));
             break;
         }
+        case '.':
+            break;
         default:
-            cerr<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
+            cout<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
             exit(EXIT_FAILURE);
     }
 }

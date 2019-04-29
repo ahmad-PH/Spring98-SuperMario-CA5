@@ -1,6 +1,9 @@
 #include "Block.h"
+#include "AssetsAddresses.h"
 
-Block::Block(ExactRectangle position, std::string image_addr, Game* game) :
+using namespace std;
+
+Block::Block(ExactRectangle position, string image_addr, Game* game) :
     Object(position, game) {
     this->image_addr = image_addr;
 }
