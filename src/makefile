@@ -4,7 +4,7 @@ COMPILE_FLAGS = $(FLAGS) -c
 
 OBJECT_FILES = main.o AnimationIndexHandler.o AutomaticMovingObject.o Block.o Brick.o \
 Coin.o Collision.o Enemy.o ExactRectangle.o FlagBlock.o Game.o Mario.o Mushroom.o \
-Object.o rsdl.o utility.o
+Object.o rsdl.o utility.o MapReader.o PipeBlock.o
 
 #main entry
 mario.out: $(OBJECT_FILES)
@@ -13,6 +13,9 @@ mario.out: $(OBJECT_FILES)
 #object file entries
 main.o: main.cpp  Game.h
 	$(CC) $(COMPILE_FLAGS) main.cpp
+
+MapReader.o: MapReader.cpp MapReader.h PipeBlock.h Block.h Game.h
+	$(CC) $(COMPILE_FLAGS) MapReader.cpp
 
 AnimationIndexHandler.o: AnimationIndexHandler.cpp AnimationIndexHandler.h  
 	$(CC) $(COMPILE_FLAGS) AnimationIndexHandler.cpp
@@ -41,7 +44,7 @@ ExactRectangle.o: ExactRectangle.cpp ExactRectangle.h
 FlagBlock.o: FlagBlock.cpp FlagBlock.h Mario.h Game.h
 	$(CC) $(COMPILE_FLAGS) FlagBlock.cpp
 
-Game.o: Game.cpp Game.h utility.h
+Game.o: Game.cpp Game.h utility.h MapReader.h
 	$(CC) $(COMPILE_FLAGS) Game.cpp
 
 Mario.o: Mario.cpp Mario.h AssetsAddresses.h utility.h Mushroom.h Game.h
@@ -55,6 +58,9 @@ Object.o: Object.cpp Object.h utility.h
 
 rsdl.o: rsdl.cpp rsdl.h 
 	$(CC) $(COMPILE_FLAGS) rsdl.cpp
+
+PipeBlock.o: PipeBlock.cpp PipeBlock.h AssetsAddresses.h
+	$(CC) $(COMPILE_FLAGS) PipeBlock.cpp
 
 utility.o: utility.cpp utility.h
 	$(CC) $(COMPILE_FLAGS) utility.cpp
@@ -90,7 +96,9 @@ rsdl.h:
 
 utility.h: rsdl.h ExactRectangle.h
 
+MapReader.h:
 
+PipeBlock.h: Block.h
 
 
 .PHONY: clean

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "utility.h"
 #include "PipeBlock.h"
+#include "MapReader.h"
 #include <fstream>
 
 using namespace std;
@@ -57,60 +58,8 @@ void Game::draw_background() {
 }
 
 void Game::load_level(string level_addr) {
-    ifstream level_file(level_addr.c_str());
-
-    string line;
-    charmap map;
-    while(getline(level_file, line)) {
-        vector<char> row;
-        for (int i = 0; i < line.size(); i++)
-            row.push_back(line[i]);
-        map.push_back(row);
-    }
-
-    charmap annotations = annotate_map(map);
-
-    for (int i = 0; i < map.size(); i++) {
-        for (int j = 0; j < map[i].size(); j++) {
-            load_map_cell(j, i, map[i][j], annotations[i][j]);
-        }
-    }
-}
-
-void Game::load_map_cell(int x, int y, char cell, char annotation) {
-    ExactRectangle position(x * CELL_SIZE_PX, y * CELL_SIZE_PX, CELL_SIZE_PX, CELL_SIZE_PX);
-    switch(cell) {
-        case '#':
-            add_block(new Block(position, GROUND_BLOCK_ADDR, this)); break;
-        case '@':
-            add_block(new Block(position, REGULAR_BLOCK_ADDR, this)); break;
-        case 'M':
-            set_mario(new Mario(position, this)); break;
-        case 'b':
-            add_brick(new RegularBrick(position, this)); break;
-        case '?':
-            add_brick(new QuestionBrick(position, this, COIN)); break;
-        case 'm':
-            add_brick(new QuestionBrick(position, this, RED_MUSHROOM)); break;
-        case 'h':
-            add_brick(new QuestionBrick(position, this, HEALTH_MUSHROOM)); break;
-        case 'l':
-            add_enemy(new LittleGoomba(position, this)); break;
-        case 'k':
-            add_enemy(new KoopaTroopa(position, this)); break;
-        case '|':
-            add_block(new PipeBlock(position, annotation, this)); break;
-        case 'f': {
-            string img_name = (annotation == 'h' ? "head" : "body");
-            add_object(new FlagBlock(position, this, FLAG_ADDR + img_name + ".png"));
-            break;
-        }
-        case '.':
-            break;
-        default:
-            cout<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
-            exit(EXIT_FAILURE);
-    }
+    clear();
+    MapReader::get_instance()->read(level_addr, this);
 }
 
 void Game::draw() {
@@ -248,38 +197,6 @@ void Game::on_marios_death() {
 
 }
 
-charmap Game::annotate_map(const charmap& map) {
-    charmap result;
-    for (int i = 0; i < map.size(); i++) {
-        vector<char> row;
-        for (int j = 0; j < map[i].size(); j++) {
-            row.push_back(annotate_cell(i, j, map));
-        }
-        result.push_back(row);
-    }
-    return result;
-}
-
-char Game::annotate_cell(int i, int j, const charmap &map) {
-    if (map[i][j] == '|') {
-        if (map[i - 1][j] != '|' && map[i][j - 1] != '|')
-            return 'L';
-        else if (map[i - 1][j] != '|' && map[i][j + 1] != '|')
-            return 'R';
-        else if (map[i][j - 1] != '|')
-            return 'l';
-        else if (map[i][j + 1] != '|')
-            return 'r';
-    } else if (map[i][j] == 'f') {
-        if (map[i-1][j] != 'f')
-            return 'h';
-        else
-            return 'b';
-    } else {
-        return ' ';
-    }
-}
-
 void Game::on_win() {
     if (!game_running)
         return;;
@@ -299,4 +216,14 @@ void Game::increment_lives() {
 
 void Game::play_sound_effect(std::string filename) {
     win.play_sound_effect(filename);
+}
+
+void Game::clear() {
+    delete_vector(objects);
+    mario = NULL;
+    blocks.clear();
+    bricks.clear();
+    enemies.clear();
+    obstacles.clear();
+    objects.clear();
 }

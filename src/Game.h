@@ -12,7 +12,6 @@
 #include <vector>
 
 #define CELL_SIZE_PX 32
-typedef std::vector<std::vector<char>> charmap;
 
 class Mario;
 
@@ -32,6 +31,7 @@ public:
     void add_brick(Brick* brick);
     void remove_brick(Brick* brick);
     void add_block(Block* block);
+    void set_mario(Mario* mario);
     void increment_coins();
     void increment_lives();
     Window* get_window() { return &win; }
@@ -41,17 +41,14 @@ public:
 
 private:
     void load_level(std::string level_addr);
-    void load_map_cell(int x, int y, char cell, char annotation);
+    void clear();
     void draw_background();
     void draw();
     void handle_events();
     void update();
     void update_camera();
-    void set_mario(Mario* mario);
     void handle_object_interactions();
     void draw_banner();
-    charmap annotate_map(const charmap& map);
-    char annotate_cell(int i, int j, const charmap& map);
 
     Window win;
     int camera_x;
