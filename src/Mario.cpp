@@ -6,6 +6,10 @@
 
 using namespace std;
 
+#define KEY_UP 'w'
+#define KEY_LEFT 'a'
+#define KEY_RIGHT 'd'
+
 const double Mario::max_vx = 20;
 const double Mario::max_vy = 30;
 const double Mario::friction_constant = 0.12, Mario::stop_threshold = 5;
@@ -25,17 +29,17 @@ Mario::Mario(ExactRectangle position, Game* game) :
 }
 
 void Mario::handle_key_press(char key) {
-    if (key == 'd') {
+    if (key == KEY_RIGHT) {
         if (motion_state == SLIDING)
             ax = 2;
         else
             ax = 2.5;
-    } else if (key == 'a') {
+    } else if (key == KEY_LEFT) {
         if (motion_state == SLIDING)
             ax = -2;
         else
             ax = -2.5;
-    } else if (key == 'w') {
+    } else if (key == KEY_UP) {
         if (motion_state != JUMPING && !jump_key_held) {
             vy = -22;
             ay = 0;
@@ -50,11 +54,11 @@ void Mario::handle_key_press(char key) {
 }
 
 void Mario::handle_key_release(char key) {
-    if (key == 'd' && ax >= 0) {
+    if (key == KEY_RIGHT && ax >= 0) {
         ax = 0;
-    } else if (key == 'a' && ax < 0) {
+    } else if (key == KEY_LEFT && ax < 0) {
         ax = 0;
-    } else if (key == 'w') {
+    } else if (key == KEY_UP) {
         jump_key_held = false;
         ay = GRAVITATIONAL_ACCELERATION;
         jump_timer = 0;
