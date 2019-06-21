@@ -28,7 +28,7 @@ public:
     void handle_interaction_with_mario(Mario* mario) override;
     void die() override;
 
-private:
+protected:
     AnimationIndexHandler animation_index_handler;
     int death_cleanup_counter;
 };
@@ -46,6 +46,14 @@ private:
     bool _is_upside_down;
     AnimationIndexHandler animation_index_handler;
     static const double shoot_speed;
+};
+
+class GenericEnemy: public LittleGoomba {
+public:
+    GenericEnemy(ExactRectangle pos, Game* game, std::string root_folder);
+    std::string get_image_addr() const override;
+private:
+    std::string root_folder;
 };
 
 #endif //SRC_ENEMY_H

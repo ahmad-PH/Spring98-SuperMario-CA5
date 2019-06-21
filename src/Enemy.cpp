@@ -117,3 +117,17 @@ void KoopaTroopa::die() {
     Enemy::die();
     game->remove_enemy(this);
 }
+
+GenericEnemy::GenericEnemy(ExactRectangle pos, Game *game, std::string root_folder)
+    : LittleGoomba(pos, game) {
+    this->root_folder = root_folder;
+}
+
+std::string GenericEnemy::get_image_addr() const {
+    string img_name;
+    if (_is_dead)
+        img_name = "dead";
+    else
+        img_name = string("walking-") + to_string(animation_index_handler.current() + 1);
+    return string(ROOT_FOLDER) + "/sprites/enemies/" + root_folder + "/" + img_name + ".png";
+}
