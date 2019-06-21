@@ -56,8 +56,7 @@ void MapReader::load_map_cell(int x, int y, char cell, char annotation, Game* ga
         case 'h':
             game->add_brick(new QuestionBrick(position, game, HEALTH_MUSHROOM)); break;
         case 'l':
-            game->add_enemy(new GenericEnemy(position, game, "little_goomba_test/")); break;
-//            game->add_enemy(new LittleGoomba(position, game)); break;
+            game->add_enemy(new LittleGoomba(position, game)); break;
         case 'k':
             game->add_enemy(new KoopaTroopa(position, game)); break;
         case '|':
@@ -69,6 +68,8 @@ void MapReader::load_map_cell(int x, int y, char cell, char annotation, Game* ga
         }
         case '.':
             break;
+        case '1':
+            game->add_enemy(new GenericEnemy(position, game, "little_goomba_test/")); break;
         default:
             cout<<"invalid chracter "<<cell<<" in map. exiting."<<endl;
             exit(EXIT_FAILURE);
