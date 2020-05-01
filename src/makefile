@@ -6,8 +6,16 @@ OBJECT_FILES = main.o AnimationIndexHandler.o AutomaticMovingObject.o Block.o Br
 Coin.o Collision.o Enemy.o ExactRectangle.o FlagBlock.o Game.o Mario.o Mushroom.o \
 Object.o rsdl.o utility.o MapReader.o PipeBlock.o
 
+# SUFFIX RULES:
+
+# 1- Compiling object files from correspoding cpp files
 %.o: %.cpp
 	$(CC) $(COMPILE_FLAGS) $< -o $@
+
+# 2- Updating .h files. This rule is needed so that every file only includes the header files
+# it directly depends on, and doesn't have to worry about indirect header dependencies.
+%.h:
+	@touch $@
 
 #main entry
 mario.out: $(OBJECT_FILES)
