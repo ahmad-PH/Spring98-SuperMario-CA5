@@ -10,3 +10,4 @@ public:
 };
 
 #endif //SRC_AUTOMATICMOVINGOBJECT_H
+

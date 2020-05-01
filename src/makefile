@@ -19,7 +19,7 @@ Object.o rsdl.o utility.o MapReader.o PipeBlock.o
 
 #main entry
 mario.out: $(OBJECT_FILES)
-	$(CC) $(OBJECT_FILES) $(FLAGS) -o mario.out
+	$(CC) $(OBJECT_FILES) $(FLAGS) -o ../mario.out
 
 #object file entries
 main.o: main.cpp  Game.h
