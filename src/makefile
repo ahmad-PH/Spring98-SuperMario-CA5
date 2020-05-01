@@ -45,7 +45,6 @@ Mushroom.o: Mushroom.cpp Mushroom.h AssetsAddresses.h Game.h
 Object.o: Object.cpp Object.h utility.h
 
 rsdl.o: rsdl.cpp rsdl.hpp
-	@echo $?
 
 PipeBlock.o: PipeBlock.cpp PipeBlock.h AssetsAddresses.h
 
