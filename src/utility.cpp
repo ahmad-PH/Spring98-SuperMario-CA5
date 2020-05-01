@@ -18,5 +18,5 @@ bool compare_floats(double a, double b, double epsilon) {
 }
 
 void show_text(Window& win, std::string text, Point position, int size) {
-    win.show_text(text, position, WHITE, "../assets/fonts/OpenSans.ttf", size);
+    win.show_text(text, position, WHITE, "./assets/fonts/OpenSans.ttf", size);
 }
