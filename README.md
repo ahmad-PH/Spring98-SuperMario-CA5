@@ -8,8 +8,7 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 ## Getting Started
 
 To play this game, you need to do the typical steps for running any c-based project.
-First, either clone the repository or simply download its ZIP and then extract it. Then enter the directory you just downloaded, and then run
-Then run 
+First, either clone the repository or simply download its ZIP and then extract it. Then, enter the directory you just downloaded, and then run
 ```
 make
 ```
