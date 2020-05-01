@@ -44,7 +44,8 @@ Mushroom.o: Mushroom.cpp Mushroom.h AssetsAddresses.h Game.h
 
 Object.o: Object.cpp Object.h utility.h
 
-rsdl.o: rsdl.cpp rsdl.h 
+rsdl.o: rsdl.cpp rsdl.hpp
+	@echo $?
 
 PipeBlock.o: PipeBlock.cpp PipeBlock.h AssetsAddresses.h
 
@@ -65,11 +66,11 @@ Collision.h:
 
 Enemy.h: AutomaticMovingObject.h AnimationIndexHandler.h
 
-ExactRectangle.h: rsdl.h
+ExactRectangle.h: rsdl.hpp
 
 FlagBlock.h : Object.h
 
-Game.h: rsdl.h AssetsAddresses.h Mario.h Block.h Brick.h Enemy.h FlagBlock.h
+Game.h: rsdl.hpp AssetsAddresses.h Mario.h Block.h Brick.h Enemy.h FlagBlock.h
 
 Mario.h: Object.h AnimationIndexHandler.h
 
@@ -77,9 +78,9 @@ Mushroom.h: AutomaticMovingObject.h
 
 Object.h: Collision.h ExactRectangle.h
 
-rsdl.h: 
+rsdl.hpp: 
 
-utility.h: rsdl.h ExactRectangle.h
+utility.h: rsdl.hpp ExactRectangle.h
 
 MapReader.h:
 
