@@ -16,7 +16,7 @@ to create the executable. Then run
 ```
 ./mario.out
 ```
-to play the game. The game currently has only one level, and it will default to that one level if you run the executable as shown above. if you add a new level and you want to execute that file, then you must run
+to play the game. The game currently has only one level, and it will default to that one level if you run the executable as shown above. If you create a new level and you want to play it, then you must run
 ```
 ./mario.out <level-file-address>
 ```
