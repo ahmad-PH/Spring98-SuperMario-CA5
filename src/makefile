@@ -18,7 +18,7 @@ Object.o rsdl.o utility.o MapReader.o PipeBlock.o
 	@touch $@
 
 #main entry
-mario.out: $(OBJECT_FILES)
+../mario.out: $(OBJECT_FILES)
 	$(CC) $(OBJECT_FILES) $(FLAGS) -o ../mario.out
 
 #object file entries
