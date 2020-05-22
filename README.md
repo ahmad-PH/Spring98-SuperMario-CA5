@@ -8,15 +8,15 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 ## Getting Started
 
 To play this game, you need to do the typical steps for running any c-based project.
-First, either clone the repository or simply download its ZIP and then extract it. Then, enter the directory you just downloaded, and then run
+First, either clone the repository or simply download its ZIP and then extract it. Then, enter the extracted directory, and then run the following to create the executable (named maio.out):
 ```
 make
 ```
-to create the executable. Then run
+Then, you can play the game using the command below:
 ```
 ./mario.out
 ```
-to play the game. The game currently has only one level, and it will default to that one level if you run the executable as shown above. If you create a new level and you want to play it, then you must run
+The game currently has only one level, and it will default to that one level if you run the executable as shown above. If you create a new level and you want to play it, then you must run
 ```
 ./mario.out <level-file-address>
 ```
