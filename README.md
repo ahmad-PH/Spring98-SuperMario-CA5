@@ -8,7 +8,7 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 ## Getting Started
 
 To play this game, you need to do the typical steps for running any c-based project.
-First, either clone the repository or simply download its ZIP and then extract it. Then, enter the extracted directory, and then run the following to create the executable (named maio.out):
+First, either clone the repository or simply download its ZIP and then extract it. Then, enter the extracted directory, and run the following to create the executable (named maio.out):
 ```
 make
 ```
