@@ -6,7 +6,7 @@ OBJECT_FILES = main.o AnimationIndexHandler.o AutomaticMovingObject.o Block.o Br
 Coin.o Collision.o Enemy.o ExactRectangle.o FlagBlock.o Game.o Mario.o Mushroom.o \
 Object.o rsdl.o utility.o MapReader.o PipeBlock.o
 
-# SUFFIX RULES:
+# PATTERN RULES:
 
 # 1- Compiling object files from correspoding cpp files
 %.o: %.cpp
