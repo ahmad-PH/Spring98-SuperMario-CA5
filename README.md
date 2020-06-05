@@ -5,7 +5,7 @@ As a teaching assistant for this course who was in charge of designing this assi
 
 This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's Simple DirectMedia Layer) library, which is a library developed to help students use the [SDL](https://www.libsdl.org/) library through a simpler and more object-oriented interface. 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bezN955K194" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Mario playthrough link](https://img.youtube.com/vi/bezN955K194/0.jpg)](https://www.youtube.com/watch?v=bezN955K194)
 
 ## Getting Started
 
