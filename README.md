@@ -8,9 +8,9 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 
 Here's a short video that shows how my implementation actually looks like:
 
-<span style="text-align: center">
+<p align="center">
 [![Mario playthrough link](https://img.youtube.com/vi/bezN955K194/0.jpg)](https://www.youtube.com/watch?v=bezN955K194)
-</span>
+</p>
 
 ## Getting Started
 
