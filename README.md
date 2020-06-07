@@ -8,11 +8,8 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 
 Here's a short video that shows how my implementation actually looks like:
 
-<span style="text-align: center"> [![Mario playthrough link](https://img.youtube.com/vi/bezN955K194/0.jpg)](https://www.youtube.com/watch?v=bezN955K194) </span>
-
-
-<a href="https://www.youtube.com/watch?v=bezN955K194" target="_blank" width="50%" style="display: block; margin-left:auto; margin-right:auto">
-  <img src="https://img.youtube.com/vi/bezN955K194/0.jpg" alt="Mario Play-through" width="100%" border="10"/>
+<a href="https://www.youtube.com/watch?v=bezN955K194" target="_blank">
+  <img src="https://img.youtube.com/vi/bezN955K194/0.jpg" alt="Mario Play-through" border="10"/>
 </a>
 
 ## Getting Started
