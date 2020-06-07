@@ -1,3 +1,4 @@
+
 # SuperMario - UTAP Spring98
 
 This is a minimal, c++ implementation of the famous and nostalgic game [SuperMario](https://supermariobros.io/), which was chosen as a course project for the Advanced Programming course of the Computer Engineering major of [University of Tehran](https://ut.ac.ir/en), on the 2019 spring semester. 
@@ -7,9 +8,9 @@ This project is built using the [RSDL](https://github.com/UTAP/RSDL) (Ramtin's S
 
 Here's a short video that shows how my implementation actually looks like:
 
-<p style="text-align: center">
+<span style="text-align: center">
 [![Mario playthrough link](https://img.youtube.com/vi/bezN955K194/0.jpg)](https://www.youtube.com/watch?v=bezN955K194)
-</p>
+</span>
 
 ## Getting Started
 
