@@ -28,6 +28,17 @@ The game currently has only one level, and it will default to that one level if 
 ./mario.out <level-file-address>
 ```
 
+## Dependencies
+* SDL2
+  * SDL2 Image Loading Library
+  * SDL2 Mixer Library
+  * SDL2 TrueType Font Library
+  
+you can refer to [this](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php) page for installation instructions. if you are using linux and have the `apt` package manager available, you can run the following command to install the dependencies:
+```
+sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev 
+```
+
 ## Authors
 
 * **Ahmad Pourihosseini** - *wrote the source code* - [ahmad-PH](https://github.com/ahmad-PH)
